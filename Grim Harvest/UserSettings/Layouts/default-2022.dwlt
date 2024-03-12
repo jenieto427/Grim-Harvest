@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2048
     height: 1060.8
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 97
+  controlID: 99
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -412,9 +412,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 7e590000
-      m_LastClickedID: 22910
-      m_ExpandedIDs: 30fbffff96590000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: e47cffff30fbffff96590000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -820,9 +820,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -45.492138, y: 156.73648, z: -48.890915}
+    m_Target: {x: 61.443542, y: 331.52057, z: -787.2367}
     speed: 2
-    m_Value: {x: -45.492138, y: 156.73648, z: -48.890915}
+    m_Value: {x: 61.443542, y: 331.52057, z: -787.2367}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -850,9 +850,9 @@ MonoBehaviour:
       m_Size: {x: 0, y: 0}
     yGrid:
       m_Fade:
-        m_Target: 0
+        m_Target: 1
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -864,24 +864,24 @@ MonoBehaviour:
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
-    m_ShowGrid: 0
+    m_ShowGrid: 1
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.37297368, y: -0.07114705, z: 0.028698336, w: -0.9246702}
+    m_Target: {x: 0.2937153, y: -0.16862041, z: 0.05272168, w: 0.93952185}
     speed: 2
-    m_Value: {x: -0.37297368, y: -0.071147054, z: 0.028698338, w: -0.9246703}
+    m_Value: {x: 0.29481563, y: -0.16854165, z: 0.052919235, w: 0.93908316}
   m_Size:
-    m_Target: 42.791534
+    m_Target: 508.2602
     speed: 2
-    m_Value: 42.791534
+    m_Value: 486.37338
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
-    m_SpeedNormalized: 0.5
+    m_Speed: 0.94053
+    m_SpeedNormalized: 0.47
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1014,7 +1014,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials
+    - Assets/Scripts/Procedural Generation
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1022,16 +1022,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Materials
+  - Assets/Scripts/Procedural Generation
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Brandon\Documents\GitHub\Grim-Harvest\Grim Harvest
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e0590000
-    m_LastClickedID: 23008
-    m_ExpandedIDs: 00000000d859000000ca9a3b
+    m_SelectedIDs: e8590000
+    m_LastClickedID: 23016
+    m_ExpandedIDs: 00000000d8590000e659000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000dc600000226700005e6700004467000000000000faa70000c2e300000a740000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
