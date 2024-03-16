@@ -13,7 +13,12 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode {NoiseMap, ColorMap, Mesh}
     public DrawMode drawMode;
 
+    public Noise.NormalizeMode normalizeMode;
+    [Range(1f, 2f)]
+    public float noiseHeightEstimation;
+
     public const int mapChunkSize = 239;
+
     [Range(0, 6)]
     public int editorPreviewLOD;
     public float noiseScale;
@@ -38,8 +43,7 @@ public class MapGenerator : MonoBehaviour
 
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
-
-    public void DrawMapInEditor()
+	public void DrawMapInEditor()
     {
         MapData mapData = GenerateMapData(Vector2.zero);
 
@@ -121,7 +125,7 @@ public class MapGenerator : MonoBehaviour
 	MapData GenerateMapData(Vector2 center)
     {
         //Retrieve perlin noise array
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistence, lacunarity, center + offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistence, lacunarity, center + offset, normalizeMode, noiseHeightEstimation);
 
         //Apply colors
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
@@ -133,9 +137,11 @@ public class MapGenerator : MonoBehaviour
 
                 foreach (var region in regions)
                 {
-                    if (currentHeight <= region.heightThreshold)
+                    if (currentHeight >= region.heightThreshold)
                     {
                         colorMap[y * mapChunkSize + x] = region.terrainColor;
+                    } else
+                    {
                         break;
                     }
                 }

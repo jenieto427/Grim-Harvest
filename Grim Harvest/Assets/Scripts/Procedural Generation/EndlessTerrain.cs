@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using UnityEngine.AI;
+using Unity.VisualScripting;
 
 /* 
  * CODE BASED ON IMPLEMENTATION BY SEBASTIAN LAGUE
@@ -8,11 +11,17 @@ using System.Collections.Generic;
 
 public class EndlessTerrain : MonoBehaviour
 {
+	public const float scale = 5f;
+
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 	public LODInfo[] detailLevels;
 	public static float maxViewDst;
+
+	const bool bakeNavMesh = true;
+	const String mainMapLayer = "Main Map";
+	static int chunkNumber = 0;
 
 	public Transform viewer;
 	public Material mapMaterial;
@@ -39,7 +48,7 @@ public class EndlessTerrain : MonoBehaviour
 
 	void Update()
 	{
-		viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
+		viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
 
 		if ((viewerPositionOld-viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
 		{
@@ -92,6 +101,8 @@ public class EndlessTerrain : MonoBehaviour
 
 		MeshRenderer meshRenderer;
 		MeshFilter meshFilter;
+		MeshCollider meshCollider;
+		NavMeshSurface navMeshSurface;
 
 		LODInfo[] detailLevels;
 		LODMesh[] lodMeshes;
@@ -99,6 +110,8 @@ public class EndlessTerrain : MonoBehaviour
 		MapData mapData;
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
+
+		bool bakedNavMesh = false;
 
 		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material)
 		{
@@ -108,13 +121,16 @@ public class EndlessTerrain : MonoBehaviour
 			bounds = new Bounds(position, Vector2.one * size);
 			Vector3 positionV3 = new Vector3(position.x, 0, position.y);
 
-			meshObject = new GameObject("Terrain Chunk");
+			meshObject = new GameObject("Terrain Chunk " + chunkNumber++);
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
+			meshCollider = meshObject.AddComponent<MeshCollider>();
+
 			meshRenderer.material = material;
 
-			meshObject.transform.position = positionV3;
+			meshObject.transform.position = positionV3 * scale;
 			meshObject.transform.parent = parent;
+			meshObject.transform.localScale = Vector3.one * scale;
 			SetVisible(false);
 
 			lodMeshes = new LODMesh[detailLevels.Length];
@@ -167,6 +183,19 @@ public class EndlessTerrain : MonoBehaviour
 						{
 							previousLODIndex = lodIndex;
 							meshFilter.mesh = lodMesh.mesh;
+							meshCollider.sharedMesh = lodMesh.mesh;
+
+							//Looking for center chunk
+							if (meshObject.transform.position == Vector3.zero)
+							{
+								meshObject.layer = LayerMask.NameToLayer(mainMapLayer);
+
+								if (!bakedNavMesh && bakeNavMesh)
+								{
+									CreateNavMesh();
+									bakedNavMesh = true;
+								}
+							}
 						}
 						else if (!lodMesh.hasRequestedMesh)
 						{
@@ -187,6 +216,19 @@ public class EndlessTerrain : MonoBehaviour
 		public bool IsVisible()
 		{
 			return meshObject.activeSelf;
+		}
+
+		public void CreateNavMesh()
+		{
+			navMeshSurface = meshObject.AddComponent<NavMeshSurface>();
+
+			// Set up NavMeshSurface parameters
+			navMeshSurface.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID; // Set the default agent type
+			navMeshSurface.layerMask = LayerMask.GetMask(mainMapLayer);
+			navMeshSurface.collectObjects = CollectObjects.All; // Collect all objects within the specified layer mask
+
+			// Generate NavMesh at runtime
+			navMeshSurface.BuildNavMesh();
 		}
 	}
 
