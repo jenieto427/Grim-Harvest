@@ -15,7 +15,7 @@ public class NoiseData : UpdatableData
 	[Range(0f, 1f)]
 	public float persistence;
 
-	[Range(0f, 11f)]
+	[Range(0f, 2.5f)]
 	public float lacunarity;
 
 	public Vector2 offset;

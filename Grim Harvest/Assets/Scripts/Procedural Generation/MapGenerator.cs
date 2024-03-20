@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using UnityEngine;
 using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 
 /* 
  * CODE BASED ON IMPLEMENTATION BY SEBASTIAN LAGUE
@@ -31,7 +32,12 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-    public int mapChunkSize
+	private void Awake()
+	{
+		textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+	}
+
+	public int mapChunkSize
     {
         get
         {
@@ -41,7 +47,9 @@ public class MapGenerator : MonoBehaviour
 
     void OnValuesUpdated()
     {
-        if (!Application.isPlaying)
+		textureData.ApplyToMaterial(terrainMaterial);
+
+		if (!Application.isPlaying)
         {
             DrawMapInEditor();
         }
@@ -49,12 +57,14 @@ public class MapGenerator : MonoBehaviour
 
     void OnTextureValuesUpdated()
     {
-        textureData.ApplyToMaterial(terrainMaterial);
+
     }
 
 	public void DrawMapInEditor()
     {
-        MapData mapData = GenerateMapData(Vector2.zero);
+		textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+
+		MapData mapData = GenerateMapData(Vector2.zero);
 
 		//Find and update map with noise map
 		MapDisplay display = FindObjectOfType<MapDisplay>();
