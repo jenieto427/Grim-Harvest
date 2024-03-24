@@ -197,7 +197,7 @@ public class EndlessTerrain : MonoBehaviour
 
 								if (!bakedNavMesh && bakeNavMesh)
 								{
-									CreateNavMesh();
+									//CreateNavMesh();
 									bakedNavMesh = true;
 								}
 							}
