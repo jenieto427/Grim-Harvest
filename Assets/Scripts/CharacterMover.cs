@@ -1,30 +1,81 @@
 using UnityEngine;
+using System.Collections; // Needed for IEnumerator
 
 public class RigidController : MonoBehaviour
 {
-	public float speed = 5;
-	private Rigidbody _rigidbody;
+    public float speed = 40.0f;
+    public float jumpForce = 5.0f;
+    public Transform cameraTransform; // Assign your Camera's Transform here in the Inspector
+    public float sprintMultiplier = 2.0f; // Multiplier to apply to speed when sprinting
+    public float doublePressTime = 0.25f; // Time frame for double press
+    public float sprintDuration = 3.0f; // Duration of the sprint in seconds
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		_rigidbody = GetComponent<Rigidbody>();
-		_rigidbody.freezeRotation = true;
-	}
+    private Rigidbody rb;
+    private bool isGrounded;
+    private float lastWPressTime = -1f; // Track the last time "W" was pressed
 
-	// Update is called once per frame
-	void FixedUpdate()
-	{
-		var right = Vector3.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
-		var forward = Vector3.forward * Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime;
-
-		_rigidbody.MovePosition(_rigidbody.position + right + forward);
-	}
-
-	/*
-    private void OnTriggerEnter(Collider other)
+    void Start()
     {
-        Debug.Log("Stepped on trigger " + other.gameObject);
+        rb = GetComponent<Rigidbody>();
     }
-    */
+
+    void Update()
+    {
+        Jump();
+
+        // Check for double press of the "W" key
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (Time.time - lastWPressTime < doublePressTime)
+            {
+                // Detected a double press, start sprinting
+                StartCoroutine(Sprint());
+            }
+            lastWPressTime = Time.time;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        MoveCharacter();
+    }
+
+    IEnumerator Sprint()
+    {
+        float originalSpeed = speed;
+        speed *= sprintMultiplier; // Increase the speed
+
+        // Wait for the duration of the sprint
+        yield return new WaitForSeconds(sprintDuration);
+
+        speed = originalSpeed; // Reset to original speed
+    }
+
+    void MoveCharacter()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction = (forward * vertical + right * horizontal).normalized;
+        Vector3 movement = direction * speed * Time.fixedDeltaTime;
+
+        rb.MovePosition(rb.position + movement);
+    }
+
+    void Jump()
+    {
+        isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 0.1f, 0), 0.4f, LayerMask.GetMask("Ground"));
+        
+        if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
 }
