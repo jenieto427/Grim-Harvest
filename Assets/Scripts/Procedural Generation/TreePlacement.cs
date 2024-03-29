@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public static class TreePlacement
 {
 
-	public static List<Vector3> GeneratePoints(float radius, MeshCollider mesh, int chunkSize, Vector2 chunkPosition, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
+	public static List<Vector3> GeneratePoints(float radius, MeshCollider mesh, int chunkSize, Vector2 chunkPosition, Vector2 sampleRegionSize, float heightThreshold, int numSamplesBeforeRejection = 30)
 	{
 		float cellSize = radius / Mathf.Sqrt(2);
 
@@ -63,7 +63,10 @@ public static class TreePlacement
 				offsetPosition = hit.point;
 			}
 
-			offsetPoints.Add(offsetPosition);
+			if (offsetPosition.y < heightThreshold)
+			{
+				offsetPoints.Add(offsetPosition);
+			}
 		}
 
 		return offsetPoints;

@@ -15,4 +15,4 @@ MonoBehaviour:
   autoUpdate: 0
   treePrefab: {fileID: 4734108316017976415, guid: 3afd56903fd2f0a4aaf711c4340bc2c4, type: 3}
   treeRadius: 60
-  spawnHeightThreshold: 100
+  spawnHeightThreshold: 80
