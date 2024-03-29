@@ -84,11 +84,11 @@ public class RigidController : MonoBehaviour
         Vector3 rayStart = transform.position + Vector3.up * 0.1f; // Start slightly above the player's pivot
 
         bool hasHit = Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, rayLength, groundLayer);
-        Debug.DrawRay(rayStart, Vector3.down * rayLength, Color.blue, 1f); // Now with a duration of 1 second and a more visible color.
+        //Debug.DrawRay(rayStart, Vector3.down * rayLength, Color.blue, 1f); // Now with a duration of 1 second and a more visible color.
 
         // Optionally log hit information for debugging
         if (hasHit) {
-            Debug.Log($"Hit: {hit.collider.gameObject.name}");
+            //Debug.Log($"Hit: {hit.collider.gameObject.name}");
         }
 
         return hasHit;
