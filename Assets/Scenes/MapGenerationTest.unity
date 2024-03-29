@@ -1599,7 +1599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &721934966
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   playerBody: {fileID: 297056751}
-  enableBounce: 0
+  enableBounce: 1
   walkBounceAmount: 1
   sprintBounceAmount: 2
   bounceSpeed: 20
@@ -2127,7 +2127,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1987062867}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: LoadOptions
+        m_MethodName: Options
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3370,8 +3370,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1952447340}
   optionsMenuUI: {fileID: 721934965}
-  cameraMover: {fileID: 963194225}
-  characterMover: {fileID: 297056747}
 --- !u!1 &2136320560
 GameObject:
   m_ObjectHideFlags: 0
