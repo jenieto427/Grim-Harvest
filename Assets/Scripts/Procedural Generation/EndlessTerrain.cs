@@ -111,7 +111,7 @@ public class EndlessTerrain : MonoBehaviour
 		LODMesh collisionLODMesh;
 
 		GameObject treePrefab;
-		List<GameObject> treeLocations = new List<GameObject>();
+		List<GameObject> trees = new List<GameObject>();
 		bool treesGenerated = false;
 
 		MapData mapData;
@@ -228,29 +228,12 @@ public class EndlessTerrain : MonoBehaviour
 					//Generate tree positions
 					if (!treesGenerated && collisionLODMesh.hasMesh)
 					{
-						Vector3 topLeftOfChunk = new Vector3(position.x * 10, 200, position.y * 10); ;
-						topLeftOfChunk.x = topLeftOfChunk.x - (chunkSize * 5);
-						topLeftOfChunk.z = topLeftOfChunk.z - (chunkSize * 5);
+						List<Vector3> treePoints = TreePlacement.GeneratePoints(60f, meshCollider, chunkSize, position, Vector2.one * (chunkSize * 10));
 
-						Vector3 newTreePosition;
-						RaycastHit hit;
-						for (int i = 0; i < chunkSize * 10; i += 75)
+						foreach (Vector3 treePos in treePoints)
 						{
-							for (int j = 0; j < chunkSize * 10; j += 75)
-							{
-								newTreePosition = topLeftOfChunk;
-								newTreePosition.x = newTreePosition.x + i;
-								newTreePosition.z = newTreePosition.z + j;
-
-								Ray ray = new Ray(newTreePosition, Vector3.down);
-								if (meshCollider.Raycast(ray, out hit, 3.0f * 200))
-								{
-									newTreePosition = hit.point;
-								}
-
-								GameObject newTree = Instantiate(treePrefab, newTreePosition, Quaternion.identity);
-								treeLocations.Add(newTree);
-							}
+							GameObject newTree = Instantiate(treePrefab, treePos, Quaternion.identity);
+							trees.Add(newTree);
 						}
 
 						treesGenerated = true;
@@ -265,7 +248,7 @@ public class EndlessTerrain : MonoBehaviour
 		{
 			meshObject.SetActive(visible);
 
-			foreach (var tree in treeLocations)
+			foreach (var tree in trees)
 			{
 				tree.SetActive(visible);
 			}
