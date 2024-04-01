@@ -4,7 +4,7 @@ public class CameraLookController : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
-    public bool enableBounce = true; // Toggle for the bounce effect
+    public bool enableBounce = false; // Toggle for the bounce effect
     public float walkBounceAmount = 0.5f; // Bounce amount when walking
     public float sprintBounceAmount = 1.0f; // Increased bounce when sprinting
     public float bounceSpeed = 2f; // Speed of the bounce effect
