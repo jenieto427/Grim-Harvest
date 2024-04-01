@@ -37,7 +37,7 @@ public class MainMenuScript : MonoBehaviour
     public void quitBtn()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 }
 
