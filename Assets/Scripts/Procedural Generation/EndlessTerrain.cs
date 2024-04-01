@@ -16,11 +16,6 @@ public class EndlessTerrain : MonoBehaviour
 	public LODInfo[] detailLevels;
 	public static float maxViewDst;
 
-	const bool bakeNavMesh = true;
-	//Initially set to null, will update with chunk when generated\
-	[SerializeField]
-	public static GameObject MainMapChunk = null;
-	const String mainMapLayer = "Main Map";
 	static int chunkNumber = 0;
 
 	public Transform viewer;
@@ -114,8 +109,6 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		bool bakedNavMesh = false;
-
 		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, GameObject tree)
 		{
 			treePrefab = tree;
@@ -190,20 +183,8 @@ public class EndlessTerrain : MonoBehaviour
 						{
 							previousLODIndex = lodIndex;
 							meshFilter.mesh = lodMesh.mesh;
-
-							//Looking for center chunk
-							if (meshObject.transform.position == Vector3.zero)
-							{
-								meshObject.layer = LayerMask.NameToLayer(mainMapLayer);
-								MainMapChunk = meshObject;
-
-								if (!bakedNavMesh && bakeNavMesh)
-								{
-									//CreateNavMesh();
-									bakedNavMesh = true;
-								}
-							}
 						}
+
 						else if (!lodMesh.hasRequestedMesh)
 						{
 							lodMesh.RequestMesh(mapData);
