@@ -14,10 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   treeModels:
-  - spawnWeight: 10
+  - spawnWeight: 3
     model: {fileID: 1552303706785112, guid: 91d4800e505e7de4dae44d7a3a9cbd1d, type: 3}
-  - spawnWeight: 100
+  - spawnWeight: 20
     model: {fileID: 1210459693873458, guid: d8ebd34c38d3d0a40b5422c0fd136471, type: 3}
-  treeRadius: 40
-  treeScale: 10
+  - spawnWeight: 20
+    model: {fileID: 1937715944061319852, guid: d160c7d56cda54c4cbe342adc0a9107d, type: 3}
+  - spawnWeight: 3
+    model: {fileID: 4805153920671627714, guid: 61d7806f22fc0b0418035e05b88b9f84, type: 3}
+  - spawnWeight: 3
+    model: {fileID: 6849428267100346888, guid: 871031ac4c7cbfe4e8a796b99ab2a620, type: 3}
+  - spawnWeight: 20
+    model: {fileID: 8469412724436655980, guid: 01fc9f4723f9508409fda56acc3bb038, type: 3}
+  - spawnWeight: 20
+    model: {fileID: 4558530772540274841, guid: 539efbb4ed9c96a47b8fe3b405ef875c, type: 3}
+  - spawnWeight: 20
+    model: {fileID: 6345315822348529609, guid: 030655b6a761c624da8d637284041936, type: 3}
+  treeRadius: 55
+  treeScale: 6
   spawnHeightThreshold: 75

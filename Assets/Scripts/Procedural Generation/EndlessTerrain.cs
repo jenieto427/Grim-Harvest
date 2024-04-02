@@ -20,7 +20,9 @@ public class EndlessTerrain : MonoBehaviour
 
 	public Transform viewer;
 	public Material mapMaterial;
+
 	public TreeData treeData;
+	public GameObject treeParent;
 
 	public static Vector2 viewerPosition;
 	Vector2 viewerPositionOld;
@@ -78,7 +80,7 @@ public class EndlessTerrain : MonoBehaviour
 				}
 				else
 				{
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, treeData));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, treeData, treeParent));
 				}
 
 			}
@@ -102,6 +104,7 @@ public class EndlessTerrain : MonoBehaviour
 		LODMesh collisionLODMesh;
 
 		TreeData treeData;
+		GameObject treeParent;
 		List<GameObject> trees = new List<GameObject>();
 		bool treesGenerated = false;
 
@@ -109,9 +112,10 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, TreeData treeData)
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, TreeData treeData, GameObject treeParent)
 		{
 			this.treeData = treeData;
+			this.treeParent = treeParent;
 			this.detailLevels = detailLevels;
 
 			position = coord * size;
@@ -212,6 +216,7 @@ public class EndlessTerrain : MonoBehaviour
 						foreach (Vector3 treePos in treePoints)
 						{
 							GameObject newTree = Instantiate(treeData.GetRandomModel(), treePos, Quaternion.identity);
+							newTree.transform.SetParent(treeParent.transform);
 							newTree.transform.localScale = Vector3.one * treeData.treeScale;
 							trees.Add(newTree);
 						}

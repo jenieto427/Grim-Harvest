@@ -6,6 +6,7 @@ using UnityEngine;
 public class TreeData : UpdatableData
 {
 	public List<TreeModel> treeModels;
+	private int cumulativeWeight = -1;
 
 	public float treeRadius;
 
@@ -13,18 +14,46 @@ public class TreeData : UpdatableData
 
 	public float spawnHeightThreshold;
 
-	public GameObject GetRandomModel()
+	private int SumWeights()
 	{
-		System.Random rand = new System.Random();
+		int sum = 0;
 
-		int randint = rand.Next(0, 100);
-		
-		foreach (TreeModel tree in treeModels)
+		foreach (TreeModel model in treeModels)
 		{
-			if (tree.spawnWeight >= randint) return tree.model;
+			Debug.Log(model.model);
+			sum += model.spawnWeight;
 		}
 
-		return treeModels[treeModels.Count - 1].model;
+		Debug.Log(sum);
+
+		return sum;
+	}
+
+	public GameObject GetRandomModel()
+	{
+		if (cumulativeWeight < 0)
+		{
+			cumulativeWeight = SumWeights();
+		}
+
+		// Generate random number
+		System.Random random = new System.Random();
+		int randNum = random.Next(1, cumulativeWeight);
+
+		while(randNum > 0)
+		{
+			foreach (TreeModel tree in treeModels)
+			{
+				randNum -= tree.spawnWeight;
+
+				if (randNum <= 0)
+				{
+					return tree.model;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	[System.Serializable]
