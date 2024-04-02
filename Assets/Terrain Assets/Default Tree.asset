@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd76e3d5cd0897f4fbb3077950a37e35, type: 3}
   m_Name: Default Tree
   m_EditorClassIdentifier: 
-  autoUpdate: 0
-  treePrefab: {fileID: 4734108316017976415, guid: 3afd56903fd2f0a4aaf711c4340bc2c4, type: 3}
-  treeRadius: 60
-  spawnHeightThreshold: 100
+  autoUpdate: 1
+  treeModels:
+  - spawnWeight: 10
+    model: {fileID: 1552303706785112, guid: 91d4800e505e7de4dae44d7a3a9cbd1d, type: 3}
+  - spawnWeight: 100
+    model: {fileID: 1210459693873458, guid: d8ebd34c38d3d0a40b5422c0fd136471, type: 3}
+  treeRadius: 40
+  treeScale: 10
+  spawnHeightThreshold: 75

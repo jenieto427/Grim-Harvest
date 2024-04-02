@@ -20,7 +20,7 @@ public class EndlessTerrain : MonoBehaviour
 
 	public Transform viewer;
 	public Material mapMaterial;
-	public GameObject treePrefab;
+	public TreeData treeData;
 
 	public static Vector2 viewerPosition;
 	Vector2 viewerPositionOld;
@@ -78,7 +78,7 @@ public class EndlessTerrain : MonoBehaviour
 				}
 				else
 				{
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, treePrefab));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, treeData));
 				}
 
 			}
@@ -101,7 +101,7 @@ public class EndlessTerrain : MonoBehaviour
 		LODMesh[] lodMeshes;
 		LODMesh collisionLODMesh;
 
-		GameObject treePrefab;
+		TreeData treeData;
 		List<GameObject> trees = new List<GameObject>();
 		bool treesGenerated = false;
 
@@ -109,9 +109,9 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, GameObject tree)
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, TreeData treeData)
 		{
-			treePrefab = tree;
+			this.treeData = treeData;
 			this.detailLevels = detailLevels;
 
 			position = coord * size;
@@ -143,6 +143,7 @@ public class EndlessTerrain : MonoBehaviour
 			}
 
 			mapGenerator.RequestMapData(position, OnMapDataReceived);
+			this.treeData = treeData;
 		}
 
 		void OnMapDataReceived(MapData mapData)
@@ -205,11 +206,13 @@ public class EndlessTerrain : MonoBehaviour
 					//Generate tree positions
 					if (!treesGenerated && collisionLODMesh.hasMesh)
 					{
-						List<Vector3> treePoints = TreePlacement.GeneratePoints(60f, meshCollider, chunkSize, position, Vector2.one * (chunkSize * 10));
+						List<Vector3> treePoints = TreePlacement.GeneratePoints(treeData, meshCollider, chunkSize, position, Vector2.one * (chunkSize * 10));
 
+						System.Random rand = new System.Random();
 						foreach (Vector3 treePos in treePoints)
 						{
-							GameObject newTree = Instantiate(treePrefab, treePos, Quaternion.identity);
+							GameObject newTree = Instantiate(treeData.GetRandomModel(), treePos, Quaternion.identity);
+							newTree.transform.localScale = Vector3.one * treeData.treeScale;
 							trees.Add(newTree);
 						}
 

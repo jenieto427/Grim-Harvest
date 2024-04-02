@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 public static class TreePlacement
 {
 
-	public static List<Vector3> GeneratePoints(float radius, MeshCollider mesh, int chunkSize, Vector2 chunkPosition, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
+	public static List<Vector3> GeneratePoints(TreeData treeData, MeshCollider mesh, int chunkSize, Vector2 chunkPosition, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
 	{
-		float cellSize = radius / Mathf.Sqrt(2);
+		float cellSize = treeData.treeRadius / Mathf.Sqrt(2);
 
 		int[,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize), Mathf.CeilToInt(sampleRegionSize.y / cellSize)];
 		List<Vector2> points = new List<Vector2>();
@@ -26,8 +26,8 @@ public static class TreePlacement
 			{
 				float angle = Random.value * Mathf.PI * 2;
 				Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-				Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2 * radius);
-				if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
+				Vector2 candidate = spawnCentre + dir * Random.Range(treeData.treeRadius, 2 * treeData.treeRadius);
+				if (IsValid(candidate, sampleRegionSize, cellSize, treeData.treeRadius, points, grid))
 				{
 					points.Add(candidate);
 					spawnPoints.Add(candidate);
@@ -63,7 +63,10 @@ public static class TreePlacement
 				offsetPosition = hit.point;
 			}
 
-			offsetPoints.Add(offsetPosition);
+			if (treeData.spawnHeightThreshold > offsetPosition.y)
+			{
+				offsetPoints.Add(offsetPosition);
+			}
 		}
 
 		return offsetPoints;
