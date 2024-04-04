@@ -21,8 +21,9 @@ public class EndlessTerrain : MonoBehaviour
 	public Transform viewer;
 	public Material mapMaterial;
 
-	public TreeData treeData;
+	public FloraData floraData;
 	public GameObject treeParent;
+	public GameObject plantParent;
 
 	public static Vector2 viewerPosition;
 	Vector2 viewerPositionOld;
@@ -80,7 +81,7 @@ public class EndlessTerrain : MonoBehaviour
 				}
 				else
 				{
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, treeData, treeParent));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, floraData, treeParent, plantParent));
 				}
 
 			}
@@ -103,19 +104,21 @@ public class EndlessTerrain : MonoBehaviour
 		LODMesh[] lodMeshes;
 		LODMesh collisionLODMesh;
 
-		TreeData treeData;
+		FloraData floraData;
 		GameObject treeParent;
-		List<GameObject> trees = new List<GameObject>();
+		GameObject plantParent;
+		List<GameObject> flora = new List<GameObject>();
 		bool treesGenerated = false;
 
 		MapData mapData;
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, TreeData treeData, GameObject treeParent)
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, FloraData treeData, GameObject treeParent, GameObject plantParent)
 		{
-			this.treeData = treeData;
+			this.floraData = treeData;
 			this.treeParent = treeParent;
+			this.plantParent = plantParent;
 			this.detailLevels = detailLevels;
 
 			position = coord * size;
@@ -147,7 +150,7 @@ public class EndlessTerrain : MonoBehaviour
 			}
 
 			mapGenerator.RequestMapData(position, OnMapDataReceived);
-			this.treeData = treeData;
+			this.floraData = treeData;
 		}
 
 		void OnMapDataReceived(MapData mapData)
@@ -210,15 +213,22 @@ public class EndlessTerrain : MonoBehaviour
 					//Generate tree positions
 					if (!treesGenerated && collisionLODMesh.hasMesh)
 					{
-						List<Vector3> treePoints = TreePlacement.GeneratePoints(treeData, meshCollider, chunkSize, position, Vector2.one * (chunkSize * 10));
+						List<Vector3> floraPoints = FloraPlacement.GeneratePoints(floraData, meshCollider, chunkSize, position, Vector2.one * (chunkSize * 10));
 
 						System.Random rand = new System.Random();
-						foreach (Vector3 treePos in treePoints)
+						foreach (Vector3 treePos in floraPoints)
 						{
-							GameObject newTree = Instantiate(treeData.GetRandomModel(), treePos, Quaternion.identity);
-							newTree.transform.SetParent(treeParent.transform);
-							newTree.transform.localScale = Vector3.one * treeData.treeScale;
-							trees.Add(newTree);
+							//Instantiate new flora
+							GameObject newFlora = Instantiate(floraData.GetRandomModel(), treePos, Quaternion.identity);
+
+							//Set parent
+							newFlora.transform.SetParent(newFlora.CompareTag("Tree") ? treeParent.transform : plantParent.transform);
+
+							//Change scale
+							newFlora.transform.localScale = Vector3.one * floraData.treeScale;
+
+							//Add to flora list
+							flora.Add(newFlora);
 						}
 
 						treesGenerated = true;
@@ -234,7 +244,7 @@ public class EndlessTerrain : MonoBehaviour
 		{
 			meshObject.SetActive(visible);
 
-			foreach (var tree in trees)
+			foreach (var tree in flora)
 			{
 				tree.SetActive(visible);
 			}
