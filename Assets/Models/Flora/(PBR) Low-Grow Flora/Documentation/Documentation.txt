@@ -1,0 +1,18 @@
+Pink Materials
+
+If your materials all appear pink, it's probably because they need to be upgraded from the legacy built in render pipeline. Update the project to match your render pipeline (either Universal Render Pipeline or High Definition Render Pipeline).
+
+-Open your Project in Unity, and go to Edit > Render Pipeline > Universal Render Pipeline.
+-According to your needs, select either Upgrade Project Materials to URP Materials or Upgrade Selected Materials to URP Materials.
+
+
+Level of Detail (LOD)
+
+-Plants with level of distance enabled (In either Hi Res LOD or Med Res LOD folders) will swap between plants and their billboards depending on the distance from the camera using the built in LOD Group component in Unity.
+
+-You can increase the distance that plants are culled or swapped by increasing the LOD Bias in Edit>Project Settings>Quality
+
+-Billboards will face towards the vector pointing out of the Main Camera using the simple "BillboardScript" in the Script folder.
+Uncheck the "Lock Up Axis" option on any billboard asset if you expect it to be viewed from above very often. This will switch to a simple "look at" script.
+
+For support, contact me at flashhaze@protonmail.com
