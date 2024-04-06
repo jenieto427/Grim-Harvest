@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Plant
+  - Tree
+  - Herb
   layers:
   - Default
   - TransparentFX

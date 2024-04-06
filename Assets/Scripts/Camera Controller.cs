@@ -56,21 +56,21 @@ public class CameraLookController : MonoBehaviour
     //Handles Raycasting from the UI reticle to active events based on collision
     void HandleRaycastUIInteraction()
     {
-        if (Input.GetMouseButtonDown(0)) // Check for left mouse button click
-        {
-            RaycastHit hit;
-            // Adjust the maxDistance as needed
-            float maxDistance = 100f; // Example max distance for raycast
+        RaycastHit hit;
+        // Adjust the maxDistance as needed
+        float maxDistance = 7f; // Example max distance for raycast
+        Vector3 rayOrigin = Camera.main.transform.position;
+        Vector3 rayDirection = Camera.main.transform.forward;
 
-            // Perform the raycast from the camera position forward
-            if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+        // Continuously perform the raycast from the camera position forward
+        bool hasHit = Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance);
+        if (hasHit)
+        {
+            //Debug.Log("Raycast hitting: " + hit.collider.name);
+            // Check for left mouse button click and correct tag on the hit object
+            if (Input.GetMouseButtonDown(0) && hit.collider.CompareTag("Herb"))
             {
-                // Check if the hit object has the correct tag
-                if (hit.collider.CompareTag("Plant"))
-                {
-                    // Assuming GameManager has a public method to handle minigame triggering
-                    MinigameManager.Instance.TriggerMinigame(playerBody);
-                }
+                MinigameManager.Instance.TriggerMinigame(playerBody);
             }
         }
     }
