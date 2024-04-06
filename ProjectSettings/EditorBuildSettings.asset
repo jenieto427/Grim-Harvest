@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Options.unity
     guid: 8f1e20b5ecf5d40f7942491c7cd390ca
+  - enabled: 1
+    path: Assets/Scenes/Minigame Scenes/SmellPlants.unity
+    guid: beaa6547446d6354faf8cf92974bf89a
   m_configObjects: {}
