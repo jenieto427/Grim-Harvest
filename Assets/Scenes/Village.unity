@@ -2611,11 +2611,39 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4132519960147215503, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6341130067791425264, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 481476049}
   m_SourcePrefab: {fileID: 100100000, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+--- !u!1 &481476048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6341130067791425264, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+  m_PrefabInstance: {fileID: 481476047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &481476049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481476048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a304bcefe0a35242b667fc46972c843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 100
+  playerBody: {fileID: 1708715870}
+  enableBounce: 0
+  walkBounceAmount: 0.5
+  sprintBounceAmount: 1
+  bounceSpeed: 2
+  sprintSpeedThreshold: 5
 --- !u!1001 &497042090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9133,6 +9161,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6143327382123120946, guid: 9e4d87ed8442a2a40b13957dd237e343, type: 3}
   m_PrefabInstance: {fileID: 1692895818}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1708715870 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2869887803878854029, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+  m_PrefabInstance: {fileID: 481476047}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1711731951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9269,7 +9302,7 @@ GameObject:
   - component: {fileID: 1735026058}
   - component: {fileID: 1735026057}
   - component: {fileID: 1735026056}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9318,7 +9351,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 044fba2db4eef1d42af28a8704eeece9, type: 2}
+  - {fileID: 2100000, guid: 96c7f6adf38ded94fb5e42e3d939629e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

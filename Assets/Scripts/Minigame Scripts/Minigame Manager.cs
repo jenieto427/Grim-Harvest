@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance { get; private set; }
 
-    public GameObject minigameUI; // Assign this in the Inspector
+    private Vector3 playerStartPosition;
+    private Quaternion playerStartRotation;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -19,15 +21,40 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
-    public void StartMinigame()
+    public void TriggerMinigame(Transform playerTransform)
     {
-        minigameUI.SetActive(true); // Show the minigame UI
-        // Any other initialization for the minigame can be done here
+        // Store player's position and rotation
+        playerStartPosition = playerTransform.position;
+        playerStartRotation = playerTransform.rotation;
+
+        // Load a random minigame
+        SceneManager.LoadScene("SmellPlants"); // Replace with random selection logic if more scenes
     }
 
-    public void EndMinigame()
+    public void ReturnToMainScene()
     {
-        minigameUI.SetActive(false); // Hide the minigame UI
-        // Clean up the minigame, save progress, etc.
+        // Load the main scene (replace "MainScene" with your actual scene name)
+        SceneManager.LoadScene("MapGenerationTest", LoadSceneMode.Single);
+        SceneManager.sceneLoaded += OnMainSceneLoaded;
+    }
+
+    private void OnMainSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Find the player in the scene
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            // Set the player's position and rotation to the stored values
+            player.transform.position = playerStartPosition;
+            player.transform.rotation = playerStartRotation;
+        }
+
+        // Unsubscribe to prevent this method from being called on every scene load
+        SceneManager.sceneLoaded -= OnMainSceneLoaded;
+    }
+
+    public void IncrementReward()
+    {
+        // Logic to increment rewards or variables
     }
 }

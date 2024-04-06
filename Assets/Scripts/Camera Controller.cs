@@ -24,8 +24,10 @@ public class CameraLookController : MonoBehaviour
     {
         HandleMouseLook();
         HandleCameraBounce();
+        HandleRaycastUIInteraction();
     }
 
+    //Handles 1st person camera looking with mouse
     void HandleMouseLook()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -38,6 +40,7 @@ public class CameraLookController : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);
     }
 
+    //Handles camera's bounce during walking and sprinting of the player gameobject
     void HandleCameraBounce()
     {
         if (!enableBounce) return;
@@ -48,5 +51,27 @@ public class CameraLookController : MonoBehaviour
         float bounceAmount = isSprinting ? sprintBounceAmount : walkBounceAmount;
         float newY = originalYPos + Mathf.Sin(Time.time * bounceSpeed) * bounceAmount;
         transform.localPosition = new Vector3(transform.localPosition.x, newY, transform.localPosition.z);
+    }
+
+    //Handles Raycasting from the UI reticle to active events based on collision
+    void HandleRaycastUIInteraction()
+    {
+        if (Input.GetMouseButtonDown(0)) // Check for left mouse button click
+        {
+            RaycastHit hit;
+            // Adjust the maxDistance as needed
+            float maxDistance = 100f; // Example max distance for raycast
+
+            // Perform the raycast from the camera position forward
+            if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+            {
+                // Check if the hit object has the correct tag
+                if (hit.collider.CompareTag("Plant"))
+                {
+                    // Assuming GameManager has a public method to handle minigame triggering
+                    MinigameManager.Instance.TriggerMinigame(playerBody);
+                }
+            }
+        }
     }
 }
