@@ -23,7 +23,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         instructionsPanel.SetActive(true);
         gamePanel.SetActive(false);
         gameTimeRemaining = gameDuration;
-        progressMeter.maxValue = 20; // Setting the maximum value programmatically
+        progressMeter.maxValue = 90; // Setting the maximum value programmatically
         progressMeter.value = 0; // Ensure the progress starts at 0
     }
 
@@ -43,8 +43,8 @@ public class SmellPlantsMinigame : MonoBehaviour
             if (gameTimeRemaining > 0)
             {
                 gameTimeRemaining -= Time.deltaTime;
-                gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " seconds left!";
-                progressMeter.value -= fillAmountReduction * Time.deltaTime;
+                gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " Seconds Left!";
+                progressMeter.value -= fillAmountReduction;
                 if (Input.GetMouseButtonDown(0)) // Detect clicks to fill the meter
                 {
                     progressMeter.value += fillAmountPerClick;
@@ -71,14 +71,14 @@ public class SmellPlantsMinigame : MonoBehaviour
     void WinGame()
     {
         // Handle win condition (e.g., display win message and reward)
-        Debug.Log("Nice!");
+        //Debug.Log("Nice!");
         // Optionally, load another scene or return to the main game
     }
 
     void LoseGame()
     {
         // Handle lose condition (e.g., display lose message)
-        Debug.Log("You killed it :(");
+        //Debug.Log("You killed it :(");
         // Optionally, restart the game or return to the main game
     }
 }
