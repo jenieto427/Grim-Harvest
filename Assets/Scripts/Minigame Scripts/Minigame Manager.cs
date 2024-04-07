@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MinigameManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class MinigameManager : MonoBehaviour
 
     private Vector3 playerStartPosition;
     private Quaternion playerStartRotation;
+    private GameObject player;
+    private GameObject uiInteract;
 
     private void Awake()
     {
@@ -19,6 +22,10 @@ public class MinigameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Attempt to find the Player and UI-Interact GameObjects
+        player = GameObject.Find("Player");
+        uiInteract = GameObject.Find("UI-Interact");
     }
 
     public void TriggerMinigame(Transform playerTransform)
@@ -27,34 +34,36 @@ public class MinigameManager : MonoBehaviour
         playerStartPosition = playerTransform.position;
         playerStartRotation = playerTransform.rotation;
 
-        // Load a random minigame
-        SceneManager.LoadScene("SmellPlants"); // Replace with random selection logic if more scenes
+        // Disable the Player and UI-Interact objects
+        if (player) player.SetActive(false);
+        if (uiInteract) uiInteract.SetActive(false);
+
+        // Load a minigame additively
+        SceneManager.LoadScene("SmellPlants", LoadSceneMode.Additive);
     }
 
     public void ReturnToMainScene()
     {
-        // Load the main scene (replace "MainScene" with your actual scene name)
-        SceneManager.LoadScene("MapGenerationTest", LoadSceneMode.Single);
-        SceneManager.sceneLoaded += OnMainSceneLoaded;
+        StartCoroutine(UnloadSceneAndProceed("SmellPlants"));
     }
 
-    private void OnMainSceneLoaded(Scene scene, LoadSceneMode mode)
+    private IEnumerator UnloadSceneAndProceed(string sceneName)
     {
-        // Find the player in the scene
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            // Set the player's position and rotation to the stored values
-            player.transform.position = playerStartPosition;
-            player.transform.rotation = playerStartRotation;
-        }
+        yield return SceneManager.UnloadSceneAsync(sceneName);
 
-        // Unsubscribe to prevent this method from being called on every scene load
-        SceneManager.sceneLoaded -= OnMainSceneLoaded;
+        // Log that the minigame scene was unloaded
+        Debug.Log("Minigame scene unloaded: " + sceneName);
+
+        // Re-enable the Player and UI-Interact objects
+        if (player) player.SetActive(true);
+        if (uiInteract) uiInteract.SetActive(true);
+
+        // Optionally, set the active scene back to the main scene if needed
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenerationTest"));
     }
 
     public void IncrementReward()
     {
-        // Logic to increment rewards or variables
+        // Implement reward increment logic here
     }
 }

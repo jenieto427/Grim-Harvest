@@ -10,6 +10,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     public GameObject gamePanel;
     public TextMeshProUGUI gameCountdownText;
     public Slider progressMeter;
+    private string minigameSceneName = "SmellPlants";
     public float gameDuration = 10f; // Game duration in seconds
     public float fillAmountPerClick = 1f; // How much the meter fills with each click
     public float fillAmountReduction = 3f; // How much the meter emptys aside of click
@@ -32,7 +33,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         if (instructionsCountdown > 0)
         {
             instructionsCountdown -= Time.deltaTime;
-            instructionsCountdownText.text = "Starting in " + Mathf.CeilToInt(instructionsCountdown).ToString() + " Seconds!";
+            instructionsCountdownText.text = "Starting in " + Mathf.CeilToInt(instructionsCountdown).ToString() + "!";
         }
         else if (!gameStarted)
         {
@@ -52,6 +53,7 @@ public class SmellPlantsMinigame : MonoBehaviour
                     {
                         WinGame();
                     }
+                    else if(progressMeter.value < 0) {progressMeter.value = 0;}
                 }
             }
             else
@@ -73,6 +75,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         // Handle win condition (e.g., display win message and reward)
         //Debug.Log("Nice!");
         // Optionally, load another scene or return to the main game
+        MinigameManager.Instance.ReturnToMainScene();
     }
 
     void LoseGame()
@@ -80,5 +83,6 @@ public class SmellPlantsMinigame : MonoBehaviour
         // Handle lose condition (e.g., display lose message)
         //Debug.Log("You killed it :(");
         // Optionally, restart the game or return to the main game
+        MinigameManager.Instance.ReturnToMainScene();
     }
 }
