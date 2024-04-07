@@ -6,7 +6,7 @@ public class RigidController : MonoBehaviour
     public float speed = 40.0f;
     public float jumpForce = 5.0f;
     public Transform cameraTransform; // Assign your Camera's Transform here in the Inspector
-    public float sprintMultiplier = 2.0f; // Multiplier to apply to speed when sprinting
+    public float sprintMultiplier = 1.0f; // Multiplier to apply to speed when sprinting
     public float doublePressTime = 0.25f; // Time frame for double press
     public float sprintDuration = 3.0f; // Duration of the sprint in seconds
     public LayerMask groundLayer; // Set this in the Inspector to match your terrain's layer
@@ -42,7 +42,7 @@ public class RigidController : MonoBehaviour
     IEnumerator Sprint()
     {
         float originalSpeed = speed;
-        speed *= sprintMultiplier; // Increase the speed
+        //speed *= sprintMultiplier; // Increase the speed
 
         // Wait for the duration of the sprint
         yield return new WaitForSeconds(sprintDuration);
