@@ -46,7 +46,8 @@ public class SmellPlantsMinigame : MonoBehaviour
                 gameTimeRemaining -= Time.deltaTime;
                 gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " Seconds Left!";
                 progressMeter.value -= fillAmountReduction;
-                if (Input.GetMouseButtonDown(0)) // Detect clicks to fill the meter
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) 
+                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
                 {
                     progressMeter.value += fillAmountPerClick;
                     if (progressMeter.value >= progressMeter.maxValue)
@@ -73,7 +74,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     void WinGame()
     {
         // Handle win condition (e.g., display win message and reward)
-        //Debug.Log("Nice!");
+        instructionsCountdownText.text = "I can harvest this!";
         // Optionally, load another scene or return to the main game
         MinigameManager.Instance.ReturnToMainScene();
     }
@@ -81,7 +82,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     void LoseGame()
     {
         // Handle lose condition (e.g., display lose message)
-        //Debug.Log("You killed it :(");
+        instructionsCountdownText.text = "What is it?";
         // Optionally, restart the game or return to the main game
         MinigameManager.Instance.ReturnToMainScene();
     }
