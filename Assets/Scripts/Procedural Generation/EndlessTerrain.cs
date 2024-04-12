@@ -114,9 +114,9 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, FloraData treeData, GameObject treeParent, GameObject plantParent)
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, FloraData floraData, GameObject treeParent, GameObject plantParent)
 		{
-			this.floraData = treeData;
+			this.floraData = floraData;
 			this.treeParent = treeParent;
 			this.plantParent = plantParent;
 			this.detailLevels = detailLevels;
@@ -127,6 +127,7 @@ public class EndlessTerrain : MonoBehaviour
 			Vector3 positionV3 = new Vector3(position.x, 0, position.y);
 
 			meshObject = new GameObject("Terrain Chunk " + chunkNumber++);
+			meshObject.layer = LayerMask.NameToLayer("Ground");
 
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
@@ -150,7 +151,7 @@ public class EndlessTerrain : MonoBehaviour
 			}
 
 			mapGenerator.RequestMapData(position, OnMapDataReceived);
-			this.floraData = treeData;
+			this.floraData = floraData;
 		}
 
 		void OnMapDataReceived(MapData mapData)
