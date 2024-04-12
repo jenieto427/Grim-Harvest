@@ -82,7 +82,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     void LoseGame()
     {
         // Handle lose condition (e.g., display lose message)
-        instructionsCountdownText.text = "What is it?";
+        instructionsCountdownText.text = "What is this?";
         // Optionally, restart the game or return to the main game
         MinigameManager.Instance.ReturnToMainScene();
     }
