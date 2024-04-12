@@ -4,7 +4,7 @@ using System.Collections;
 public class RigidController : MonoBehaviour
 {
     public float speed = 40.0f;
-    public float jumpForce = 5.0f;
+    public float jumpForce = 1000.0f;
     public Transform cameraTransform; // Assign your Camera's Transform here in the Inspector
     public float sprintMultiplier = 1.0f; // Multiplier to apply to speed when sprinting
     public float doublePressTime = 0.25f; // Time frame for double press
@@ -87,10 +87,11 @@ public class RigidController : MonoBehaviour
         Debug.DrawRay(rayStart, Vector3.down * rayLength, Color.blue, 1f); // Now with a duration of 1 second and a more visible color.
 
         // Optionally log hit information for debugging
+        /*
         if (hasHit) {
             Debug.Log($"Hit: {hit.collider.gameObject.name}");
         }
-
+        */
         return hasHit;
     }
 
