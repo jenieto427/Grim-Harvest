@@ -2607,6 +2607,10 @@ PrefabInstance:
       propertyPath: enableBounce
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5699062796934176839, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 7216830560651197129, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
       propertyPath: m_Mesh
       value: 
