@@ -9,6 +9,8 @@ public class SmellPlantsMinigame : MonoBehaviour
     public TextMeshProUGUI instructionsCountdownText;
     public GameObject gamePanel;
     public TextMeshProUGUI gameCountdownText;
+    public TextMeshProUGUI instructionsText;
+    public TextMeshProUGUI buttonsInstructions;
     public Slider progressMeter;
     private string minigameSceneName = "SmellPlants";
     public float gameDuration = 10f; // Game duration in seconds
@@ -74,16 +76,24 @@ public class SmellPlantsMinigame : MonoBehaviour
     void WinGame()
     {
         // Handle win condition (e.g., display win message and reward)
-        instructionsCountdownText.text = "I can harvest this!";
+        gamePanel.SetActive(false);
+        instructionsPanel.SetActive(true);
+        instructionsCountdownText.enabled = false;
+        buttonsInstructions.enabled = false;
+        instructionsText.text = "I can harvest this!";
         // Optionally, load another scene or return to the main game
-        MinigameManager.Instance.ReturnToMainScene();
+        //MinigameManager.Instance.ReturnToMainScene();
     }
 
     void LoseGame()
     {
         // Handle lose condition (e.g., display lose message)
-        instructionsCountdownText.text = "What is this?";
+        gamePanel.SetActive(false);
+        instructionsPanel.SetActive(true);
+        instructionsCountdownText.enabled = false;
+        buttonsInstructions.enabled = false;
+        instructionsText.text = "What is this?";
         // Optionally, restart the game or return to the main game
-        MinigameManager.Instance.ReturnToMainScene();
+        //MinigameManager.Instance.ReturnToMainScene();
     }
 }

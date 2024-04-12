@@ -1515,6 +1515,8 @@ MonoBehaviour:
   instructionsCountdownText: {fileID: 1123059591}
   gamePanel: {fileID: 909244895}
   gameCountdownText: {fileID: 1168685665}
+  instructionsText: {fileID: 340863106}
+  buttonsInstructions: {fileID: 1507932528}
   progressMeter: {fileID: 1581733538}
   gameDuration: 10
   fillAmountPerClick: 2
