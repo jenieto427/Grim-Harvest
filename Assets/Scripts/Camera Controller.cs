@@ -51,7 +51,7 @@ public class CameraLookController : MonoBehaviour
             // Check for left mouse button click and correct tag on the hit object
             if (Input.GetMouseButtonDown(0) && hit.collider.CompareTag("Herb"))
             {
-                MinigameManager.Instance.TriggerMinigame(playerBody);
+                MinigameManager.Instance.TriggerMinigame(playerBody, hit.collider.gameObject);
             }
         }
     }

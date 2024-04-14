@@ -20,6 +20,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     private float instructionsCountdown = 3f; // Duration of the instructions countdown
     private bool gameStarted = false;
     private float gameTimeRemaining;
+    private GameObject herbObject;
 
     void Start()
     {
@@ -48,7 +49,7 @@ public class SmellPlantsMinigame : MonoBehaviour
                 gameTimeRemaining -= Time.deltaTime;
                 gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " Seconds Left!";
                 progressMeter.value -= fillAmountReduction;
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) 
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
                 || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
                 {
                     progressMeter.value += fillAmountPerClick;
@@ -56,7 +57,7 @@ public class SmellPlantsMinigame : MonoBehaviour
                     {
                         WinGame();
                     }
-                    else if(progressMeter.value < 0) {progressMeter.value = 0;}
+                    else if (progressMeter.value < 0) { progressMeter.value = 0; }
                 }
             }
             else
@@ -81,7 +82,8 @@ public class SmellPlantsMinigame : MonoBehaviour
         instructionsCountdownText.enabled = false;
         buttonsInstructions.enabled = false;
         instructionsText.text = "I can harvest this!";
-        // Optionally, load another scene or return to the main game
+
+        //Return to the main game
         //MinigameManager.Instance.ReturnToMainScene();
     }
 
@@ -93,7 +95,12 @@ public class SmellPlantsMinigame : MonoBehaviour
         instructionsCountdownText.enabled = false;
         buttonsInstructions.enabled = false;
         instructionsText.text = "What is this?";
-        // Optionally, restart the game or return to the main game
+
+        //Delete the herb clone from the 3d world
+        if (herbObject != null) { herbObject.SetActive(false); }
+
+        // Return to the main game
         //MinigameManager.Instance.ReturnToMainScene();
     }
+    public void SetHerb(GameObject herb) { herbObject = herb; }
 }

@@ -28,7 +28,7 @@ public class MinigameManager : MonoBehaviour
         uiInteract = GameObject.Find("UI-Interact");
     }
 
-    public void TriggerMinigame(Transform playerTransform)
+    public void TriggerMinigame(Transform playerTransform, GameObject herb)
     {
         // Store player's position and rotation
         playerStartPosition = playerTransform.position;
@@ -40,6 +40,13 @@ public class MinigameManager : MonoBehaviour
 
         // Load a minigame additively
         SceneManager.LoadScene("SmellPlants", LoadSceneMode.Additive);
+
+        // Once the scene is loaded, pass the crop to the minigame
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            SmellPlantsMinigame minigame = FindObjectOfType<SmellPlantsMinigame>();
+            if (minigame != null){minigame.SetHerb(herb);} //if game not null, pass herb
+        };
     }
 
     public void ReturnToMainScene()
@@ -51,15 +58,12 @@ public class MinigameManager : MonoBehaviour
     {
         yield return SceneManager.UnloadSceneAsync(sceneName);
 
-        // Log that the minigame scene was unloaded
-        Debug.Log("Minigame scene unloaded: " + sceneName);
-
+        // Optionally, set the active scene back to the main scene if needed
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenerationTest"));
+        
         // Re-enable the Player and UI-Interact objects
         if (player) player.SetActive(true);
         if (uiInteract) uiInteract.SetActive(true);
-
-        // Optionally, set the active scene back to the main scene if needed
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenerationTest"));
     }
 
     public void IncrementReward()
