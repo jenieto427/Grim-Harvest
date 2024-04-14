@@ -41,11 +41,11 @@ public class MinigameManager : MonoBehaviour
         // Load a minigame additively
         SceneManager.LoadScene("SmellPlants", LoadSceneMode.Additive);
 
-        // Once the scene is loaded, pass the crop to the minigame
+        // Once the scene is loaded, pass the herb to the minigame
         SceneManager.sceneLoaded += (scene, mode) =>
         {
             SmellPlantsMinigame minigame = FindObjectOfType<SmellPlantsMinigame>();
-            if (minigame != null){minigame.SetHerb(herb);} //if game not null, pass herb
+            if (minigame != null) { minigame.SetHerb(herb); } //if game not null, pass herb
         };
     }
 
@@ -60,7 +60,7 @@ public class MinigameManager : MonoBehaviour
 
         // Optionally, set the active scene back to the main scene if needed
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenerationTest"));
-        
+
         // Re-enable the Player and UI-Interact objects
         if (player) player.SetActive(true);
         if (uiInteract) uiInteract.SetActive(true);
