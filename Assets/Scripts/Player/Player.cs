@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(This);
+        SaveSystem.SavePlayer(this);
     }
     public void LoadPlayer()
     {
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         energy = data.energy;
         plantMaterial = data.plantMaterial;
 
-        Vector3.position;
+        Vector3 position;
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
