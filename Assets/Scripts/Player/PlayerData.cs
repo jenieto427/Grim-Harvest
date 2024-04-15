@@ -5,15 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData : MonoBehaviour
 {
-    public int hunger;
-    public int resources;
+    public int energy;
+    public int plantMaterial;
     public float[] position;
 
     //Constructor
     public PlayerData(Player player)
     {
-        hunger = player.hunger;
-        resources = player.resources;
+        energy = player.energy;
+        plantMaterial = player.plantMaterial;
 
         position = new float[3];
         position[0] = player.transform.position.x;

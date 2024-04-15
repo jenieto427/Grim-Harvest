@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int hunger = 50;
-    public int resources = 0;
+    public int energy = 100;
+    public int plantMaterial = 0;
 
     public void SavePlayer()
     {
@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
-        hunger = data.hunger;
-        resources = data.resources;
+        energy = data.energy;
+        plantMaterial = data.plantMaterial;
 
         Vector3.position;
         position.x = data.position[0];
