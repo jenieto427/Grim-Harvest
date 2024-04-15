@@ -5,9 +5,6 @@ using System.Collections;
 public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance { get; private set; }
-
-    private Vector3 playerStartPosition;
-    private Quaternion playerStartRotation;
     private GameObject player;
     private GameObject uiInteract;
 
@@ -28,12 +25,8 @@ public class MinigameManager : MonoBehaviour
         uiInteract = GameObject.Find("UI-Interact");
     }
 
-    public void TriggerMinigame(Transform playerTransform, GameObject herb)
+    public void TriggerMinigame(GameObject herb)
     {
-        // Store player's position and rotation
-        playerStartPosition = playerTransform.position;
-        playerStartRotation = playerTransform.rotation;
-
         // Disable the Player and UI-Interact objects
         if (player) player.SetActive(false);
         if (uiInteract) uiInteract.SetActive(false);
@@ -48,7 +41,7 @@ public class MinigameManager : MonoBehaviour
             if (minigame != null) { minigame.SetHerb(herb); } //if game not null, pass herb
         };
     }
-
+    // Called from minigames' scripts
     public void ReturnToMainScene()
     {
         StartCoroutine(UnloadSceneAndProceed("SmellPlants"));
@@ -64,10 +57,5 @@ public class MinigameManager : MonoBehaviour
         // Re-enable the Player and UI-Interact objects
         if (player) player.SetActive(true);
         if (uiInteract) uiInteract.SetActive(true);
-    }
-
-    public void IncrementReward()
-    {
-        // Implement reward increment logic here
     }
 }

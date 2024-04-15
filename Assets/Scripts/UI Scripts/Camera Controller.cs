@@ -3,56 +3,52 @@ using UnityEngine;
 public class CameraLookController : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
-    public Transform playerBody;
+    public Transform orientation; // Reference to the player's body for rotation and possibly positioning
 
-    private float xRotation = 0f;
-    private float originalYPos = 0f;
-    private bool isSprinting = false;
+    private float xRotation;
+    private float yRotation;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
-        originalYPos = transform.localPosition.y; // Store the original Y position for bouncing
     }
 
-    void Update()
+    private void LateUpdate()
     {
         HandleMouseLook();
         HandleRaycastUIInteraction();
     }
 
-    //Handles 1st person camera looking with mouse
+    // Handles 1st person camera looking with mouse
     void HandleMouseLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Prevent over-rotation
+        yRotation += mouseX * Time.deltaTime;
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        xRotation -= mouseY * Time.deltaTime;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Clamps the vertical rotation
+
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    //Handles Raycasting from the UI reticle to active events based on collision
+    // Handles Raycasting from the UI reticle to active events based on collision
     void HandleRaycastUIInteraction()
     {
         RaycastHit hit;
-        // Adjust the maxDistance as needed
         float maxDistance = 7f; // Example max distance for raycast
         Vector3 rayOrigin = Camera.main.transform.position;
         Vector3 rayDirection = Camera.main.transform.forward;
 
-        // Continuously perform the raycast from the camera position forward
-        bool hasHit = Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance);
-        if (hasHit)
+        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance) || !Input.GetMouseButtonDown(0))
+            return; // Exit if no collision or mouse button is not pressed
+
+        if (hit.collider.CompareTag("Herb"))
         {
-            //Debug.Log("Raycast hitting: " + hit.collider.name);
-            // Check for left mouse button click and correct tag on the hit object
-            if (Input.GetMouseButtonDown(0) && hit.collider.CompareTag("Herb"))
-            {
-                MinigameManager.Instance.TriggerMinigame(playerBody, hit.collider.gameObject);
-            }
+            hit.collider.enabled = false; // Disable herb collider, to prevent re-harvesting
+            MinigameManager.Instance.TriggerMinigame(hit.collider.gameObject); // Activate the minigame
         }
     }
 }

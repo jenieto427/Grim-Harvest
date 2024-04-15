@@ -71,7 +71,7 @@ public class RigidController : MonoBehaviour
     void Jump()
     {
         bool isGrounded = IsGrounded();
-        
+
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -80,18 +80,11 @@ public class RigidController : MonoBehaviour
 
     bool IsGrounded()
     {
-        float rayLength = 1.0f; // Consider adjusting this based on your character's height and the distance to the ground.
+        float rayLength = 2.0f; // distance from floor mesh collision
         Vector3 rayStart = transform.position + Vector3.up * 0.1f; // Start slightly above the player's pivot
 
         bool hasHit = Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, rayLength, groundLayer);
         Debug.DrawRay(rayStart, Vector3.down * rayLength, Color.blue, 1f); // Now with a duration of 1 second and a more visible color.
-
-        // Optionally log hit information for debugging
-        /*
-        if (hasHit) {
-            Debug.Log($"Hit: {hit.collider.gameObject.name}");
-        }
-        */
         return hasHit;
     }
 
