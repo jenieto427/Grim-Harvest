@@ -36,24 +36,24 @@ public class UIManager : MonoBehaviour
             // Update text elements with the current player attributes
             if (player.energy > 13f) //Player is wakeful at 13KHz
             {
-                wakefulText.text = "Beta Wave: " + player.energy.ToString() + " KHz";
+                wakefulText.text = "Beta Wave: " + player.energy.ToString() + " Hz";
             }
             else if (player.energy >= 8f) //Player is sleepy below 13KHz to 8KHz
             {
-                wakefulText.text = "Alpha Wave: " + player.energy.ToString() + " KHz";
+                wakefulText.text = "Alpha Wave: " + player.energy.ToString() + " Hz";
                 //TODO: Notification to player that they are sleepy
             }
             else if (player.energy >= 4f)
             {
-                wakefulText.text = "Theta Wave: " + player.energy.ToString() + " KHz";
+                wakefulText.text = "Theta Wave: " + player.energy.ToString() + " Hz";
             }
             else if (player.energy >= 1f)
             {
-                wakefulText.text = "Delta Wave: " + player.energy.ToString() + " KHz";
+                wakefulText.text = "Delta Wave: " + player.energy.ToString() + " Hz";
             }
             else if (player.energy < 1f)
             {
-                wakefulText.text = "Below Delta: " + player.energy.ToString() + " KHz";
+                wakefulText.text = "Below Delta: " + player.energy.ToString() + " Hz";
             }
 
             plantMaterialText.text = "Data & Plant Materials: " + player.plantMaterial.ToString();

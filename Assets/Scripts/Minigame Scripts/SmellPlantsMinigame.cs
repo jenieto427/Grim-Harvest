@@ -8,7 +8,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     public TextMeshProUGUI gameCountdownText;
     public TextMeshProUGUI instructionsText;
     public Slider progressMeter;
-    private float gameDuration = 10f;
+    private float gameDuration = 5f; //Each game lasts 5 seconds
     private bool gameStarted = false;
     private float gameTimeRemaining;
     private GameObject herbObject;
@@ -58,37 +58,32 @@ public class SmellPlantsMinigame : MonoBehaviour
 
     void StartGame()
     {
-        instructionsText.text = "Ipsum Lorem";
+        //instructionsText.text = "Ipsum Lorem";
         gameStarted = true;
     }
 
     void WinGame()
     {
-        gameStarted = false;
-        instructionsText.text = "I can harvest this!";
-        //TODO: Increase resources
+        gameStarted = false; // End game updates
         if (player != null)
         {
             player.IncreasePlantMaterial(5);
             player.DecreaseEnergy(1f);
-            Debug.Log("Beta Activity" + player.energy);
-            Debug.Log("Plant Material" + player.plantMaterial);
         }
-        else { Debug.Log("Player Null"); }
+        //TODO: Send UI notitification
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
     void LoseGame()
     {
-        gameStarted = false;
-        instructionsText.text = "What is this?";
+        gameStarted = false; // End game updates
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
-        //TODO: Decrease energy
-        if (player != null) { player.DecreaseEnergy(1.5f); }
+        if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
+        //TODO: Send UI notitification
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
-    // Herb to be deleted on game loss condition, called from Minigame Manager.cs
+    // Local herb object set from Minigame Manager.cs
     public void SetHerb(GameObject herb) { herbObject = herb; }
 }
