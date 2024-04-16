@@ -22,14 +22,13 @@ public class MinigameManager : MonoBehaviour
 
         // Attempt to find the Player and UI-Interact GameObjects
         player = GameObject.Find("Player");
-        uiInteract = GameObject.Find("UI-Interact");
+        uiInteract = GameObject.Find("Interact-UI");
     }
 
     public void TriggerMinigame(GameObject herb)
     {
         // Disable the Player and UI-Interact objects
-        if (player) player.SetActive(false);
-        if (uiInteract) uiInteract.SetActive(false);
+        LockPlayerMovement(true);
 
         // Load a minigame additively
         SceneManager.LoadScene("SmellPlants", LoadSceneMode.Additive);
@@ -55,7 +54,28 @@ public class MinigameManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenerationTest"));
 
         // Re-enable the Player and UI-Interact objects
-        if (player) player.SetActive(true);
-        if (uiInteract) uiInteract.SetActive(true);
+        LockPlayerMovement(false);
+    }
+    private void LockPlayerMovement(bool lockMovement)
+    {
+        if (player)
+        {
+            Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+            if (playerRigidbody != null)
+            {
+                if (lockMovement)
+                {
+                    // Freeze all player movement including rotation
+                    playerRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else
+                {
+                    // Unfreeze all to free position, then reapply freeze to rotation
+                    playerRigidbody.constraints = RigidbodyConstraints.None;
+                    playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                }
+            }
+        }
+        if (uiInteract) uiInteract.SetActive(!lockMovement);
     }
 }

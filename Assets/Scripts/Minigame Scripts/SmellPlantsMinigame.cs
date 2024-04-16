@@ -12,9 +12,21 @@ public class SmellPlantsMinigame : MonoBehaviour
     private bool gameStarted = false;
     private float gameTimeRemaining;
     private GameObject herbObject;
+    public Player player;
 
     void Start()
     {
+        //Set the Player Object to update it's values
+        GameObject playerObject = GameObject.Find("Player"); // Replace "Player" with the exact name of your player GameObject
+        if (playerObject != null)
+        {
+            player = playerObject.GetComponent<Player>();
+        }
+        else
+        {
+            Debug.LogError("Player object not found in the scene!");
+        }
+
         gameTimeRemaining = gameDuration;
         progressMeter.maxValue = 90;
         progressMeter.value = 0;
@@ -55,6 +67,14 @@ public class SmellPlantsMinigame : MonoBehaviour
         gameStarted = false;
         instructionsText.text = "I can harvest this!";
         //TODO: Increase resources
+        if (player != null)
+        {
+            player.IncreasePlantMaterial(5);
+            player.DecreaseEnergy(1f);
+            Debug.Log("Beta Activity" + player.energy);
+            Debug.Log("Plant Material" + player.plantMaterial);
+        }
+        else { Debug.Log("Player Null"); }
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
@@ -64,6 +84,8 @@ public class SmellPlantsMinigame : MonoBehaviour
         instructionsText.text = "What is this?";
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
+        //TODO: Decrease energy
+        if (player != null) { player.DecreaseEnergy(1.5f); }
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
