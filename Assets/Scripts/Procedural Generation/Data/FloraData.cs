@@ -9,15 +9,39 @@ public class FloraData : UpdatableData
 	public List<TreeModel> treeModels;
 	public List<HerbModel> herbModels;
 
-	public float treeRadius;
-	public float treeSpawnHeightThreshold;
-	public float treeScale;
+	public float treeRadius = 50;
+	public float treeSpawnHeightThreshold = 100;
+	public float treeScale = 6;
 
 	[Range(0, 100)]
-	public int herbSpawnProbability;
+	public int herbSpawnProbability = 50;
 
 	private int cumulativeTreeWeight = -1;
 	private int cumulativeHerbWeight = -1;
+	// Reduce spawn rate of both trees and herbs
+	public void ReduceSpawnRate(float reductionFactor)
+	{
+		AdjustTreeWeights(reductionFactor);
+		AdjustHerbWeights(reductionFactor);
+	}
+
+	private void AdjustTreeWeights(float reductionFactor)
+	{
+		foreach (var model in treeModels)
+		{
+			model.spawnWeight = Mathf.Max(1, (int)(model.spawnWeight * reductionFactor));
+		}
+		cumulativeTreeWeight = -1; // Reset so it recalculates
+	}
+
+	private void AdjustHerbWeights(float reductionFactor)
+	{
+		foreach (var model in herbModels)
+		{
+			model.spawnWeight = Mathf.Max(1, (int)(model.spawnWeight * reductionFactor));
+		}
+		cumulativeHerbWeight = -1; // Reset so it recalculates
+	}
 
 	private int SumTreeWeights()
 	{
@@ -68,7 +92,8 @@ public class FloraData : UpdatableData
 			GameObject newHerb = RandomPicker(herbModels, randNum, cumulativeHerbWeight);
 			newHerb.tag = "Herb";
 			return newHerb;
-		} else
+		}
+		else
 		{
 			//Spawn tree
 			randNum = random.Next(1, cumulativeTreeWeight);
@@ -77,12 +102,12 @@ public class FloraData : UpdatableData
 			return newTree;
 		}
 	}
-	
-	GameObject RandomPicker(List<TreeModel> floraList, int randNum, int cumulativeWeight) 
+
+	GameObject RandomPicker(List<TreeModel> floraList, int randNum, int cumulativeWeight)
 	{
 		while (randNum > 0)
 		{
-			foreach(TreeModel flora in floraList)
+			foreach (TreeModel flora in floraList)
 			{
 				randNum -= flora.spawnWeight;
 
@@ -121,7 +146,7 @@ public class FloraData : UpdatableData
 	}
 
 	[System.Serializable]
-	public class TreeModel : FloraModel {}
+	public class TreeModel : FloraModel { }
 
 	[System.Serializable]
 	public class HerbModel : FloraModel

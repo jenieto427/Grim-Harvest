@@ -13,6 +13,7 @@ public class SmellPlantsMinigame : MonoBehaviour
     private float gameTimeRemaining;
     private GameObject herbObject;
     public Player player;
+    public FloraData floraData;
 
     void Start()
     {
@@ -79,6 +80,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         gameStarted = false; // End game updates
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
+        if (floraData != null) { floraData.ReduceSpawnRate(1f - .5f); }
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
         //TODO: Send UI notitification
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
