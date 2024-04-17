@@ -8,6 +8,22 @@ public class Player : MonoBehaviour
     public float energy = 30;
     public int plantMaterial = 0;
     public int stimulant = 0;
+    public static Player Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            // This is the first player instance, make it the Singleton
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            // A different instance of this class already exists, destroy this one
+            Destroy(gameObject);
+        }
+    }
 
     public void SavePlayer()
     {
