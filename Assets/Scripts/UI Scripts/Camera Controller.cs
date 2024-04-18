@@ -62,6 +62,12 @@ public class CameraLookController : MonoBehaviour
         {
             if (isMouseClicked)
             {
+                // Check if the player has energy
+                if (Player.Instance.energy <= 1)
+                {
+                    UIManager.Instance.UpdateNotificationQueue("Your brain isn't capable of work");
+                    return;
+                }
                 hit.collider.enabled = false; // Disable collider to prevent re-harvesting
                 MinigameManager.Instance.TriggerMinigame(hit.collider.gameObject); // Trigger minigame
             }

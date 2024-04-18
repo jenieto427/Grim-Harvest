@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float energy = 30;
     public int plantMaterial = 0;
     public int stimulant = 0;
+    public float energyBound = 30;
     public static Player Instance;
 
     void Awake()
@@ -24,6 +25,25 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E)) { Medicate(); } // Check if player ate their meds
+    }
+    public void Medicate()
+    {
+        if (stimulant >= 1)
+        {
+            DecrementStimulant(); // Reduce stimulant stash
+            IncreaseEnergy(2); // Restore energy
+
+            // Optionally, trigger some UI feedback or effects here
+            UIManager.Instance.UpdateNotificationQueue("Brain activity has increased");
+        }
+        else
+        {
+            UIManager.Instance.UpdateNotificationQueue("You don't have any stims...");
+        }
+    }
     public void DecrementStimulant()
     {
         this.stimulant--;
@@ -32,17 +52,17 @@ public class Player : MonoBehaviour
     public void IncrementStimulant()
     {
         this.stimulant++;
-        //if (this.stimulant < 0) { this.energy = 0; } //Upper bound on num of stimulants
+        //if (this.stimulant > 0) { this.energy = 0; } //Upper bound on num of stimulants
     }
     public void DecreaseEnergy(float decreaseAmt)
     {
         this.energy -= decreaseAmt;
-        if (this.energy < 0) { this.energy = 0; } //Clamp energy low bound to 0
+        if (this.energy < 0) { Application.Quit(); } //Clamp energy low bound to 0
     }
     public void IncreaseEnergy(float increaseAmt)
     {
         this.energy += increaseAmt;
-        if (this.energy > 30f) { this.energy = 30f; } //Clamp energy to high 30 KHz
+        if (this.energy > energyBound) { this.energy = energyBound; } //Clamp energy to high 30 Hz
     }
     public void DecreasePlantMaterial(int decreaseAmt)
     {

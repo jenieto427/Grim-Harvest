@@ -75,7 +75,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         }
 
         //Update notifications
-        UIManager.Instance.UpdateNotificationQueue("Well you saved this one");
+        UIManager.Instance.UpdateNotificationQueue("Surprised you saved this one");
         // Return back to world
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
@@ -91,7 +91,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
 
         // Update notifications
-        UIManager.Instance.UpdateNotificationQueue("There won't be any plants when you're done");
+        UIManager.Instance.UpdateNotificationQueue("Killing the ecosystem one plant at a time");
 
         // Return back to world
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world

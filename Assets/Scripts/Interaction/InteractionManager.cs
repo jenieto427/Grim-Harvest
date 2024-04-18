@@ -27,12 +27,12 @@ public class InteractionManager : MonoBehaviour
             player.DecreasePlantMaterial(cost); // Reduce samples/money
             player.IncrementStimulant(); // Increment stimulant count 
             // Show success message
-            UIManager.Instance.UpdateNotificationQueue("Bought stimulant");
+            UIManager.Instance.UpdateNotificationQueue("Bought a drug");
         }
         else
         {
             // Show error message of failed purchase
-            UIManager.Instance.UpdateNotificationQueue("You don't have enough samples");
+            UIManager.Instance.UpdateNotificationQueue("Not enough samples");
         }
     }
 }
