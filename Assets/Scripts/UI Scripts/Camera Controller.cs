@@ -38,17 +38,42 @@ public class CameraLookController : MonoBehaviour
     void HandleRaycastUIInteraction()
     {
         RaycastHit hit;
-        float maxDistance = 7f; // Example max distance for raycast
+        float maxDistance = 7f; // Maximum distance for raycast
         Vector3 rayOrigin = Camera.main.transform.position;
         Vector3 rayDirection = Camera.main.transform.forward;
 
-        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance) || !Input.GetMouseButtonDown(0))
-            return; // Exit if no collision or mouse button is not pressed
-
-        if (hit.collider.CompareTag("Herb"))
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance))
         {
-            hit.collider.enabled = false; // Disable herb collider, to prevent re-harvesting
-            MinigameManager.Instance.TriggerMinigame(hit.collider.gameObject); // Activate the minigame
+            // Handle interaction based on mouse input
+            HandleInteraction(hit, Input.GetMouseButtonDown(0));
+        }
+        else
+        {
+            UIManager.Instance.UpdateInteractionUI(""); // Clear UI text when no hit is detected
+        }
+    }
+    // Reticle raycast handling
+    void HandleInteraction(RaycastHit hit, bool isMouseClicked)
+    {
+        string tag = hit.collider.tag;
+
+        // Decide on action based on tag and whether the mouse was clicked
+        if (tag == "Herb")
+        {
+            if (isMouseClicked)
+            {
+                hit.collider.enabled = false; // Disable collider to prevent re-harvesting
+                MinigameManager.Instance.TriggerMinigame(hit.collider.gameObject); // Trigger minigame
+            }
+            UIManager.Instance.UpdateInteractionUI(isMouseClicked ? "" : "Study Plant \n(Left Click)");
+        }
+        else if (tag == "NPC Vendor")
+        {
+            if (isMouseClicked)
+            {
+                InteractionManager.Instance.HandleVendorInteraction(Player.Instance, hit.collider.gameObject); // Handle vendor interaction
+            }
+            UIManager.Instance.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
         }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Tree
   - Herb
+  - NPC
+  - NPC Vendor
   layers:
   - Default
   - TransparentFX

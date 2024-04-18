@@ -66,23 +66,34 @@ public class SmellPlantsMinigame : MonoBehaviour
     void WinGame()
     {
         gameStarted = false; // End game updates
+
+        // Update game variables
         if (player != null)
         {
             player.IncreasePlantMaterial(5);
             player.DecreaseEnergy(1f);
         }
-        //TODO: Send UI notitification
+
+        //Update notifications
+        UIManager.Instance.UpdateNotificationQueue("Well you saved this one");
+        // Return back to world
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
     void LoseGame()
     {
         gameStarted = false; // End game updates
+
+        // Update game variables
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
         if (floraData != null) { floraData.ReduceSpawnRate(1f - .5f); }
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
-        //TODO: Send UI notitification
+
+        // Update notifications
+        UIManager.Instance.UpdateNotificationQueue("There won't be any plants when you're done");
+
+        // Return back to world
         MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
     }
 
