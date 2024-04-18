@@ -24,8 +24,7 @@ public class SceneLoader
                 SceneManager.LoadScene(MAP_SCENE_NAME);
 
                 //Factorize (lol) new MapGenerator
-                MapGeneratorFactory factory = new MapGeneratorFactory();
-                MapGenerator mapGenerator = factory.InitMapGenerator();
+                MapGenerator newMapGenerator = new MapGeneratorFactory().InitMapGenerator();
 
                 break;
 

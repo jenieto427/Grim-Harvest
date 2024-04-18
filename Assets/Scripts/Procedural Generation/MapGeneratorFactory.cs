@@ -17,7 +17,7 @@ public class MapGeneratorFactory : ScriptableObject
         TerrainDataCollection dataSheet = null;
 
         foreach (TerrainDataCollection sheet in environmentDataSheets) {
-            if (phytomass <= sheet.phytomassThreshold) {
+            if (phytomass >= sheet.phytomassThreshold) {
                 dataSheet = sheet;
                 break;
             }
