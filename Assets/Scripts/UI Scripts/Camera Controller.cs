@@ -7,6 +7,10 @@ public class CameraLookController : MonoBehaviour
 
     private float xRotation;
     private float yRotation;
+    public UIManager uiManager;
+    public MinigameManager minigameManager;
+    public InteractionManager interactionManager;
+    public Player player;
 
     void Start()
     {
@@ -49,7 +53,7 @@ public class CameraLookController : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.UpdateInteractionUI(""); // Clear UI text when no hit is detected
+            uiManager.UpdateInteractionUI(""); // Clear UI text when no hit is detected
         }
     }
     // Reticle raycast handling
@@ -63,23 +67,23 @@ public class CameraLookController : MonoBehaviour
             if (isMouseClicked)
             {
                 // Check if the player has energy
-                if (Player.Instance.energy <= 1)
+                if (player.energy <= 1)
                 {
-                    UIManager.Instance.UpdateNotificationQueue("Your brain isn't capable of work");
+                    uiManager.UpdateNotificationQueue("Your brain isn't capable of work");
                     return;
                 }
                 hit.collider.enabled = false; // Disable collider to prevent re-harvesting
-                MinigameManager.Instance.TriggerMinigame(hit.collider.gameObject); // Trigger minigame
+                minigameManager.TriggerMinigame(hit.collider.gameObject); // Trigger minigame
             }
-            UIManager.Instance.UpdateInteractionUI(isMouseClicked ? "" : "Study Plant \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Study Plant \n(Left Click)");
         }
         else if (tag == "NPC Vendor")
         {
             if (isMouseClicked)
             {
-                InteractionManager.Instance.HandleVendorInteraction(Player.Instance, hit.collider.gameObject); // Handle vendor interaction
+                interactionManager.HandleVendorInteraction(player, hit.collider.gameObject);
             }
-            UIManager.Instance.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
         }
     }
 }

@@ -4,22 +4,11 @@ using System.Collections;
 
 public class MinigameManager : MonoBehaviour
 {
-    public static MinigameManager Instance { get; private set; }
     private GameObject player;
     private GameObject uiInteract;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         // Attempt to find the Player and UI-Interact GameObjects
         player = GameObject.Find("Player");
         uiInteract = GameObject.Find("Interact-UI");

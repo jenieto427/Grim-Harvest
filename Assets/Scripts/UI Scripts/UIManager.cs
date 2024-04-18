@@ -16,18 +16,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI interactionText; // UI element for interactions
     private Queue<string> notificationQueue = new Queue<string>(); // Notification string queue
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    private void Awake() { return; }
 
     void Update()
     {

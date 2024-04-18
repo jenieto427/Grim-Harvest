@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-    public static InteractionManager Instance { get; private set; }
+    private UIManager uiManager;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        GameObject uiManagerObject = GameObject.Find("UIManager");
+        uiManager = uiManagerObject.GetComponent<UIManager>();
     }
 
     public void HandleVendorInteraction(Player player, GameObject vendor)
@@ -27,12 +20,12 @@ public class InteractionManager : MonoBehaviour
             player.DecreasePlantMaterial(cost); // Reduce samples/money
             player.IncrementStimulant(); // Increment stimulant count 
             // Show success message
-            UIManager.Instance.UpdateNotificationQueue("Bought a drug");
+            uiManager.UpdateNotificationQueue("Bought a drug");
         }
         else
         {
             // Show error message of failed purchase
-            UIManager.Instance.UpdateNotificationQueue("Not enough samples");
+            uiManager.UpdateNotificationQueue("Not enough samples");
         }
     }
 }

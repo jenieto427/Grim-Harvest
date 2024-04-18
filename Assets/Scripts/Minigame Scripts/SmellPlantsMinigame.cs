@@ -12,21 +12,25 @@ public class SmellPlantsMinigame : MonoBehaviour
     private bool gameStarted = false;
     private float gameTimeRemaining;
     private GameObject herbObject;
-    public Player player;
+    private Player player;
     public FloraData floraData;
+    private UIManager uiManager;
+    private MinigameManager minigameManager;
+
+    private void Awake()
+    {
+        return;
+    }
 
     void Start()
     {
-        //Set the Player Object to update it's values
-        GameObject playerObject = GameObject.Find("Player"); // Replace "Player" with the exact name of your player GameObject
-        if (playerObject != null)
-        {
-            player = playerObject.GetComponent<Player>();
-        }
-        else
-        {
-            Debug.LogError("Player object not found in the scene!");
-        }
+        //Set the GameObject scripts
+        GameObject playerObject = GameObject.Find("Player");
+        player = playerObject.GetComponent<Player>();
+        GameObject uiManagerObject = GameObject.Find("UIManager");
+        uiManager = uiManagerObject.GetComponent<UIManager>();
+        GameObject minigameManagerObject = GameObject.Find("MinigameManager");
+        minigameManager = minigameManagerObject.GetComponent<MinigameManager>();
 
         gameTimeRemaining = gameDuration;
         progressMeter.maxValue = 90;
@@ -75,9 +79,9 @@ public class SmellPlantsMinigame : MonoBehaviour
         }
 
         //Update notifications
-        UIManager.Instance.UpdateNotificationQueue("Surprised you saved this one");
+        uiManager.UpdateNotificationQueue("Surprised you saved this one");
         // Return back to world
-        MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
+        minigameManager.ReturnToMainScene(); // Return to the procedural world
     }
 
     void LoseGame()
@@ -91,10 +95,10 @@ public class SmellPlantsMinigame : MonoBehaviour
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
 
         // Update notifications
-        UIManager.Instance.UpdateNotificationQueue("Killing the ecosystem one plant at a time");
+        uiManager.UpdateNotificationQueue("Killing the ecosystem one plant at a time");
 
         // Return back to world
-        MinigameManager.Instance.ReturnToMainScene(); // Return to the procedural world
+        minigameManager.ReturnToMainScene(); // Return to the procedural world
     }
 
     // Local herb object set from Minigame Manager.cs

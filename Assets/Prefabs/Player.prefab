@@ -80,7 +80,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3332054611599687795}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -134,8 +134,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 3
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3869052962827613782
@@ -238,6 +238,9 @@ MonoBehaviour:
   energy: 30
   plantMaterial: 0
   stimulant: 0
+  energyBound: 30
+  phytomass: 0
+  uiManager: {fileID: 0}
 --- !u!1 &6937871040369756821
 GameObject:
   m_ObjectHideFlags: 0
