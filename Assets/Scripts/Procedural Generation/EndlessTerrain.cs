@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 /* 
  * CODE BASED ON IMPLEMENTATION BY SEBASTIAN LAGUE
@@ -34,7 +35,7 @@ public class EndlessTerrain : MonoBehaviour
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 
-	void Start()
+	public void Start()
 	{
 		mapGenerator = FindObjectOfType<MapGenerator>();
 
@@ -55,6 +56,11 @@ public class EndlessTerrain : MonoBehaviour
 			viewerPositionOld = viewerPosition;
 			UpdateVisibleChunks();
 		}
+	}
+
+	public void ClearTerrain() {
+		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
+		terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 	}
 
 	void UpdateVisibleChunks()
@@ -243,6 +249,8 @@ public class EndlessTerrain : MonoBehaviour
 
 		public void SetVisible(bool visible)
 		{
+			if (meshObject == null) return;
+
 			meshObject.SetActive(visible);
 
 			foreach (var tree in flora)

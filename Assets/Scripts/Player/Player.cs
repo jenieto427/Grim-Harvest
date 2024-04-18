@@ -28,8 +28,7 @@ public class Player : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         // Check if the current scene is not 'Village'
-        if (currentSceneName == "Village") { SceneManager.LoadScene("MapGenerationTest"); }
-        else { SceneManager.LoadScene("Village"); }
+        SceneLoader.LoadScene(currentSceneName == "Village" ? "MapGenerationTest" : "Village");
     }
     public void Medicate()
     {

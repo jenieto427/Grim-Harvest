@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c76325c0131845c4c81e54bc09a3be4c, type: 3}
-  m_Name: Default Texture
+  m_Name: Texture Data
   m_EditorClassIdentifier: 
   autoUpdate: 1
   layers:
