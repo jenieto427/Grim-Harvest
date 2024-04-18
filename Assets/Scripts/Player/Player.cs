@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     {
         if (Instance == null)
         {
-            // This is the first player instance, make it the Singleton
+            // This is the first player instance
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -28,6 +28,17 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) { Medicate(); } // Check if player ate their meds
+        //if (Input.GetKeyDown(KeyCode.T)) {Travel ();}
+    }
+    public void Travel()
+    {
+        DecreaseEnergy(0.5f);
+        // Get the current scene name
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Check if the current scene is not 'Village'
+        if (currentSceneName == "Village") { SceneManager.LoadScene("MapGenerationTest"); }
+        else { SceneManager.LoadScene("Village"); }
     }
     public void Medicate()
     {
