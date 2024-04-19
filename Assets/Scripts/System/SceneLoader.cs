@@ -10,12 +10,10 @@ public class SceneLoader
     private const string MAP_SCENE_NAME = "MapGenerationTest";
 
     public static void LoadScene(string SCENE_NAME) {
-        EndlessTerrain terrainScript = GameObject.FindObjectOfType<EndlessTerrain>();
-
         switch (SCENE_NAME)
         {
             case VILLAGE_SCENE_NAME:
-                terrainScript.ClearTerrain();
+                //terrainScript.ClearTerrain();
                 SceneManager.LoadScene(VILLAGE_SCENE_NAME);
                 break;
 

@@ -44,14 +44,15 @@ public class EndlessTerrain : MonoBehaviour
 		maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
 		chunkSize = mapGenerator.mapChunkSize - 1;
 		chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / chunkSize);
-
-		UpdateVisibleChunks();
 	}
 
 
 	void Update()
 	{
 		if (!mapGeneratorFinished) return;
+			
+		//Initialize
+		UpdateVisibleChunks();
 
 		viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.terrainData.uniformScale;
 
@@ -69,7 +70,6 @@ public class EndlessTerrain : MonoBehaviour
 
 	void UpdateVisibleChunks()
 	{
-
 		for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
 		{
 			terrainChunksVisibleLastUpdate[i].SetVisible(false);
@@ -91,7 +91,7 @@ public class EndlessTerrain : MonoBehaviour
 				}
 				else
 				{
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, floraData, treeParent, plantParent));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, floraData, treeParent, plantParent, mapGeneratorFinished));
 				}
 
 			}
@@ -124,8 +124,11 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataRecieved;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, FloraData floraData, GameObject treeParent, GameObject plantParent)
+		bool mapGeneratorFinished;
+
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, FloraData floraData, GameObject treeParent, GameObject plantParent, bool mapGeneratorFinished)
 		{
+			this.mapGeneratorFinished = mapGeneratorFinished;
 			this.floraData = floraData;
 			this.treeParent = treeParent;
 			this.plantParent = plantParent;

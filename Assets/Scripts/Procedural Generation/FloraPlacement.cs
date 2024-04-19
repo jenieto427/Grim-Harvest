@@ -58,7 +58,7 @@ public static class FloraPlacement
 			offsetPosition.y = 200;
 
 			Ray ray = new Ray(offsetPosition, Vector3.down);
-			if (mesh.Raycast(ray, out hit, 3.0f * 200))
+			if (mesh.Raycast(ray, out hit, 3.0f * 500))
 			{
 				offsetPosition = hit.point;
 			}

@@ -36,12 +36,13 @@ public class TerrainGeneratorFactory : MonoBehaviour
 		if (!mapHasGenerated)
 		{
 			InstantiateTerrainGenerator();
-			mapHasGenerated = true;
 		}
 	}
 
 	public void InstantiateTerrainGenerator()
 	{
+		mapHasGenerated = true;
+
 		//Instantiate new generator
 		GameObject terrainGenerator = Instantiate(generatorPrefab, Vector3.zero, Quaternion.identity);
 		MapGenerator mapGenerator = terrainGenerator.GetComponentInChildren<MapGenerator>();
@@ -59,8 +60,9 @@ public class TerrainGeneratorFactory : MonoBehaviour
 
 		//Run Map Generator
 		mapGenerator.OnSceneLoad();
-		endlessTerrain.mapGeneratorFinished = true;
 		endlessTerrain.OnSceneLoad();
+
+		endlessTerrain.mapGeneratorFinished = true;
 	}
 
 	void SetConstantValues(MapGenerator mapGenerator, EndlessTerrain endlessTerrain)
@@ -70,8 +72,6 @@ public class TerrainGeneratorFactory : MonoBehaviour
 		mapGenerator.noiseHeightEstimation = NOISE_HEIGHT_ESTIMATION;
 		mapGenerator.editorPreviewLOD = EDITOR_PREVIEW_LOD;
 		mapGenerator.autoUpdate = AUTO_UPDATE;
-		
-		DetermineTextureDataSheets(mapGenerator);
 
 		//Endless Terrain Values
 		endlessTerrain.viewer = playerPrefab.transform;
@@ -82,13 +82,24 @@ public class TerrainGeneratorFactory : MonoBehaviour
 
 	void DetermineTextureDataSheets(MapGenerator terrainGenerator) {
 		int phytomass = playerPrefab.GetComponentInChildren<Player>().phytomass;
+		phytomass = 70;
 		TerrainDataCollection dataSheet = null;
 
 		foreach (TerrainDataCollection sheet in environmentDataSheets)
 		{
-			if (phytomass <= sheet.phytomassThreshold)
+			if (phytomass >= sheet.phytomassThreshold)
 			{
-				SetTextureData(terrainGenerator, sheet);
+				//Ensure it's the highest possible sheet
+				if (dataSheet != null)
+				{
+					if (sheet.phytomassThreshold > dataSheet.phytomassThreshold)
+					{
+						dataSheet = sheet;
+					}
+				} else
+				{
+					dataSheet = sheet;
+				}
 			}
 		}
 
