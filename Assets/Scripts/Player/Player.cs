@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public int plantMaterial = 0;
     public int stimulant = 0;
     public float energyBound = 30;
-    public int phytomass = 0;
+    public int phytomass = 50; //Start with default 50 mass
     public UIManager uiManager;
 
     void Start()

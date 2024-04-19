@@ -8,6 +8,7 @@ TagManager:
   - Herb
   - NPC
   - NPC Vendor
+  - Factory
   layers:
   - Default
   - TransparentFX

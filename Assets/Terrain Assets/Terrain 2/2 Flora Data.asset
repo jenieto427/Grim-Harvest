@@ -9,6 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d60a468441c2c5fabb9c38c4b0b0f66, type: 3}
-  m_Name: Map Factory
+  m_Script: {fileID: 11500000, guid: fd76e3d5cd0897f4fbb3077950a37e35, type: 3}
+  m_Name: 2 Flora Data
   m_EditorClassIdentifier: 
+  autoUpdate: 0
+  treeModels: []
+  herbModels: []
+  treeRadius: 50
+  treeSpawnHeightThreshold: 100
+  treeScale: 6
+  herbSpawnProbability: 50

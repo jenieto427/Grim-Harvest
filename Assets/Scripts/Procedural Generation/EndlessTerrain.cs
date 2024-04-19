@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class EndlessTerrain : MonoBehaviour
 {
+	//Indicates if the map generator object has finished generating
+	public bool mapGeneratorFinished = false;
 
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
@@ -35,7 +37,7 @@ public class EndlessTerrain : MonoBehaviour
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 
-	public void Start()
+	public void OnSceneLoad()
 	{
 		mapGenerator = FindObjectOfType<MapGenerator>();
 
@@ -49,6 +51,8 @@ public class EndlessTerrain : MonoBehaviour
 
 	void Update()
 	{
+		if (!mapGeneratorFinished) return;
+
 		viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.terrainData.uniformScale;
 
 		if ((viewerPositionOld-viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)

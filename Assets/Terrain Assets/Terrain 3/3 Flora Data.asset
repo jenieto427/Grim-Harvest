@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76325c0131845c4c81e54bc09a3be4c, type: 3}
-  m_Name: Texture Data
+  m_Script: {fileID: 11500000, guid: fd76e3d5cd0897f4fbb3077950a37e35, type: 3}
+  m_Name: 3 Flora Data
   m_EditorClassIdentifier: 
   autoUpdate: 0
-  layers: []
+  treeModels: []
+  herbModels: []
+  treeRadius: 50
+  treeSpawnHeightThreshold: 100
+  treeScale: 6
+  herbSpawnProbability: 50
