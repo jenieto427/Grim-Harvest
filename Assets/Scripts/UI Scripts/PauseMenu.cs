@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +11,9 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public static bool optionsIsUp = false;
     public GameObject pauseMenuUI;
-    public GameObject optionsMenuUI;
+    //public GameObject optionsMenuUI;
+
+    //public GameObject cameraController;
 
 
     void Update()
@@ -49,7 +53,7 @@ public class PauseMenu : MonoBehaviour
 
         else if(Input.GetKeyDown(KeyCode.Y) && optionsIsUp)
         {
-            
+       // Component cc = cameraController.GetComponent<CameraLookController>;
            
         }
         
@@ -60,6 +64,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         
     }
 
@@ -68,6 +74,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void LoadMenu()
@@ -81,13 +89,13 @@ public class PauseMenu : MonoBehaviour
         //Options.setPrevSceneName("MapGenerationTest");
         //SceneManager.LoadScene("Options");
         pauseMenuUI.SetActive(false);
-        optionsMenuUI.SetActive(true);
+        //optionsMenuUI.SetActive(true);
         optionsIsUp = true;
     }
 
     public void BackToPauseMenu()
     {
-        optionsMenuUI.SetActive(false);
+        //optionsMenuUI.SetActive(false);
         pauseMenuUI.SetActive(true);
         optionsIsUp = false;
 
