@@ -67,7 +67,7 @@ public static class FloraPlacement
 			}
 			
 			//Ensure it hit a mesh
-			//if (offsetPosition.y == 200f) continue;
+			if (offsetPosition.y == 200f) continue;
 			
 			offsetPoints.Add(offsetPosition);
 		}

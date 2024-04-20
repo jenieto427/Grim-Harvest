@@ -75,8 +75,7 @@ public class MapGenerator : MonoBehaviour
 		else if (drawMode == DrawMode.Mesh)
 		{
             MeshData generatedMesh = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, editorPreviewLOD, terrainData.useFlatShading);
-			display.DrawMesh(generatedMesh);
-
+            display.DrawMesh(generatedMesh);
 		}
 	}
 

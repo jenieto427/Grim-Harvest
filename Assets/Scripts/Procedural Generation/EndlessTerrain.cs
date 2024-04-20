@@ -232,31 +232,28 @@ public class EndlessTerrain : MonoBehaviour
 						Vector2 colliderPosition = new Vector2(meshCollider.transform.position.x, meshCollider.transform.position.z);
 						if (myChunkNumber == 26) Debug.Log(colliderPosition);
 						List<Vector3> floraPoints = FloraPlacement.GeneratePoints(floraData, meshCollider, colliderPosition, Vector2.one * (chunkSize * 10));
-						if (myChunkNumber == 26) {
-							Debug.Log(floraPoints.Count);
-							foreach (Vector3 point in floraPoints) {
-							
-								Debug.Log(point);
+
+						//Ensure that the trees properly generated in time with the mesh
+						if (floraPoints.Count != 0) {
+							foreach (Vector3 treePos in floraPoints)
+							{
+								//Instantiate new flora
+								GameObject newFlora = Instantiate(floraData.GetRandomModel(), treePos, Quaternion.identity);
+
+								//Set parent
+								newFlora.transform.SetParent(newFlora.CompareTag("Tree") ? treeParent.transform : plantParent.transform);
+
+								//Change scale
+								newFlora.transform.localScale = Vector3.one * floraData.treeScale;
+								
+								//Add to flora list
+								flora.Add(newFlora);
 							}
+
+							treesGenerated = true;
 						}
-						foreach (Vector3 treePos in floraPoints)
-						{
-							//Instantiate new flora
-							GameObject newFlora = Instantiate(floraData.GetRandomModel(), treePos, Quaternion.identity);
-
-							//Set parent
-							newFlora.transform.SetParent(newFlora.CompareTag("Tree") ? treeParent.transform : plantParent.transform);
-
-							//Change scale
-							newFlora.transform.localScale = Vector3.one * floraData.treeScale;
-
-							//Add to flora list
-							flora.Add(newFlora);
-						}
-
-						treesGenerated = true;
 					}
-
+					
 					terrainChunksVisibleLastUpdate.Add(this);
 				}
 
