@@ -6,9 +6,10 @@ using UnityEngine.UIElements;
 public static class FloraPlacement
 {
 
-	public static List<Vector3> GeneratePoints(FloraData floraData, MeshCollider mesh, int chunkSize, Vector2 chunkPosition, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
+	public static List<Vector3> GeneratePoints(FloraData floraData, MeshCollider mesh, Vector2 chunkPosition, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
 	{
 		float cellSize = floraData.treeRadius / Mathf.Sqrt(2);
+		sampleRegionSize /= 2;
 
 		int[,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize), Mathf.CeilToInt(sampleRegionSize.y / cellSize)];
 		List<Vector2> points = new List<Vector2>();
@@ -53,15 +54,20 @@ public static class FloraPlacement
 		{
 			offsetPosition = point;
 
-			offsetPosition.x = point.x - (chunkSize * 5) + (chunkPosition.x * 10);
-			offsetPosition.z = point.y - (chunkSize * 5) + (chunkPosition.y * 10);
-			offsetPosition.y = 200;
+		                	//Offset the the point to fit to chunk  //Offset to chunk position
+			offsetPosition.x = (point.x - (sampleRegionSize.x/2)) + chunkPosition.x;
+			offsetPosition.z = (point.y - (sampleRegionSize.x/2)) + chunkPosition.y;
+			offsetPosition.y = 200f;
 
+			
 			Ray ray = new Ray(offsetPosition, Vector3.down);
-			if (mesh.Raycast(ray, out hit, 3.0f * 500))
+			if (mesh.Raycast(ray, out hit, 500f))
 			{
 				offsetPosition = hit.point;
 			}
+			
+			//Ensure it hit a mesh
+			//if (offsetPosition.y == 200f) continue;
 			
 			offsetPoints.Add(offsetPosition);
 		}

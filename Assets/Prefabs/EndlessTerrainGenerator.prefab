@@ -68,13 +68,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a6c1f6be54b96478bcfc26e2e1ae6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapGeneratorFinished: 0
   detailLevels:
   - lod: 0
     visibleDstThreshold: 100
     useForCollider: 1
   - lod: 1
     visibleDstThreshold: 250
-    useForCollider: 0
+    useForCollider: 1
   - lod: 4
     visibleDstThreshold: 300
     useForCollider: 0
