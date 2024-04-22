@@ -1246,6 +1246,18 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1479387489}
+    - target: {fileID: 1733743726904562026, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603273823923601025, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641686010998586157, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3869052962827613782, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1254,6 +1266,10 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1896486685}
+    - target: {fileID: 4047512236149831829, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: plantMaterial
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7744312296539022293, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5

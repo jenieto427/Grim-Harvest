@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1947,6 +1947,10 @@ PrefabInstance:
       propertyPath: interactionManager
       value: 
       objectReference: {fileID: 354405900}
+    - target: {fileID: 5765669845068585969, guid: f0728f79715beb4489a4fa2fda0f340d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.96
+      objectReference: {fileID: 0}
     - target: {fileID: 8344001474562319093, guid: f0728f79715beb4489a4fa2fda0f340d, type: 3}
       propertyPath: m_Name
       value: CameraHolder
@@ -1957,7 +1961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146247297258957123, guid: f0728f79715beb4489a4fa2fda0f340d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 56.07
+      value: 56.49
       objectReference: {fileID: 0}
     - target: {fileID: 9146247297258957123, guid: f0728f79715beb4489a4fa2fda0f340d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2008,17 +2012,13 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 963194228}
-    - target: {fileID: 1222064403436212439, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
+    - target: {fileID: 1733743726904562026, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3869052962827613782, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047512236149831829, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
-      propertyPath: stimulant
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4047512236149831829, guid: bc0b797f07c8ec94b90b7c6a710dffca, type: 3}
       propertyPath: uiManager
