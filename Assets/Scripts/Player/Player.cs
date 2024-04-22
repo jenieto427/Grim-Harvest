@@ -19,17 +19,30 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) { Medicate(); } // Check if player ate their meds
-        if (Input.GetKeyDown(KeyCode.T)) { Travel(); }
+        if (Input.GetKeyDown(KeyCode.T)) { Travel(); } // Travel between forest and village
+        if (Input.GetKeyDown(KeyCode.C)) { resetPlayerPrefs(); } // Check if player reset stats
     }
     public void Travel()
     {
-        DecreaseEnergy(0.5f);
+        if (this.energy == 0.5f) { DecreaseEnergy(0.5f); }
         // Get the current scene name
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         // Check if the current scene is not 'Village'
         SceneLoader.LoadScene(currentSceneName == "Village" ? "MapGenerationTest" : "Village");
     }
+    public void playerDeath()
+    {
+        resetPlayerPrefs(); // Reset player variables
+
+        uiManager.UpdateNotificationQueue("I'm pretty sure you died..."); // Tell the player what happened
+
+        // Put them back in the village
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneLoader.LoadScene(currentSceneName == "Village" ? "MapGenerationTest" : "Village");
+
+    }
+
     public void Medicate()
     {
         if (stimulant >= 1)
@@ -51,6 +64,16 @@ public class Player : MonoBehaviour
         if (this.stimulant < 0) { this.energy = 0; } //Clamp stimulants low bound to 0
         SavePlayerPrefs();
     }
+    public void decreasePhytomass()
+    {
+        if (this.phytomass <= 0) { this.phytomass = 2; }
+        this.phytomass -= 2;
+    }
+    public void increasePhytomass()
+    {
+        if (this.phytomass > 100) { this.phytomass = 100; }
+        this.phytomass += 2;
+    }
     public void IncrementStimulant()
     {
         this.stimulant++;
@@ -60,7 +83,7 @@ public class Player : MonoBehaviour
     public void DecreaseEnergy(float decreaseAmt)
     {
         this.energy -= decreaseAmt;
-        if (this.energy < 0) { Application.Quit(); } //Clamp energy low bound to 0
+        if (this.energy <= 0) { playerDeath(); } //Clamp energy low bound to 0
         SavePlayerPrefs();
     }
     public void IncreaseEnergy(float increaseAmt)
@@ -82,7 +105,15 @@ public class Player : MonoBehaviour
         //if (this.plantMaterial > 100000) { this.plantMaterial = 100000; }
         SavePlayerPrefs();
     }
-
+    public void resetPlayerPrefs()
+    {
+        this.energy = 30;
+        this.plantMaterial = 0;
+        this.stimulant = 0;
+        this.energyBound = 30;
+        this.phytomass = 50;
+        SavePlayerPrefs();
+    }
     public void SavePlayerPrefs()
     {
         PlayerPrefs.SetFloat("Energy", energy);

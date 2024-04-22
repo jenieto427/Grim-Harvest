@@ -91,7 +91,7 @@ public class SmellPlantsMinigame : MonoBehaviour
         // Update game variables
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
-        if (floraData != null) { floraData.ReduceSpawnRate(1f - .5f); }
+        player.decreasePhytomass();
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
 
         // Update notifications
