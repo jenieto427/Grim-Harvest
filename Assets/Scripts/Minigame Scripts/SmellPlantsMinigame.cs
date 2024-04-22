@@ -140,7 +140,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         gameStarted = false;
         player.IncreasePlantMaterial(sampleCount);
         player.DecreaseEnergy(1f);
-        uiManager.UpdateNotificationQueue("Surprised you save that one");
+        uiManager.UpdateNotificationQueue("Surprised you saved that one");
         minigameManager.ReturnToMainScene();
     }
 

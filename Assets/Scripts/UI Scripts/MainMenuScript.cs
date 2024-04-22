@@ -7,7 +7,7 @@ public class MainMenuScript : MonoBehaviour
 {
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             startbtn();
         }
@@ -25,9 +25,9 @@ public class MainMenuScript : MonoBehaviour
     }
     public void startbtn()
     {
-        SceneManager.LoadScene("MapGenerationTest");
+        SceneManager.LoadScene("Village");
     }
-    
+
     public void optionsBtn()
     {
         Options.setPrevSceneName(SceneManager.GetActiveScene().name);

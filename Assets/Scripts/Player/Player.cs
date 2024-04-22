@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     }
     public void Travel()
     {
-        if (this.energy == 0.5f) { DecreaseEnergy(0.5f); }
+        DecreaseEnergy(0.5f);
         // Get the current scene name
         string currentSceneName = SceneManager.GetActiveScene().name;
 
