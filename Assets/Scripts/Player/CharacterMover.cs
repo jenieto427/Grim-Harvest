@@ -80,7 +80,7 @@ public class RigidController : MonoBehaviour
 
     bool IsGrounded()
     {
-        float rayLength = 2.0f; // distance from floor mesh collision
+        float rayLength = 4.0f; // distance from floor mesh collision
         Vector3 rayStart = transform.position + Vector3.up * 0.1f; // Start slightly above the player's pivot
 
         bool hasHit = Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, rayLength, groundLayer);

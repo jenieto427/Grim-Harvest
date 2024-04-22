@@ -62,6 +62,9 @@ public class MinigameManager : MonoBehaviour
                     // Unfreeze all to free position, then reapply freeze to rotation
                     playerRigidbody.constraints = RigidbodyConstraints.None;
                     playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                    // Unlock and show cursor
+                    Cursor.lockState = CursorLockMode.Locked; // Free the cursor
+                    Cursor.visible = false; // Make the cursor visible
                 }
             }
         }

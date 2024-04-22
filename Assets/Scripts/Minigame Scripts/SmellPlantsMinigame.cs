@@ -1,106 +1,158 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; // For UI event handling
 
-public class SmellPlantsMinigame : MonoBehaviour
+public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface to detect pointer release
 {
     public TextMeshProUGUI gameCountdownText;
     public TextMeshProUGUI instructionsText;
-    public Slider progressMeter;
-    private float gameDuration = 5f; //Each game lasts 5 seconds
+    public TextMeshProUGUI sampleCountText;
+    public TextMeshProUGUI aromaTargetIntervalText;
+    public TextMeshProUGUI sliderMeterText;
+    public Slider sliderMeter; // Player's slider
+    public Image noseImage;
+    public Image flowerImage;
+
+    // Sprites
+    public Sprite noseBigWhiff;
+    public Sprite noseNoWhiff;
+    public Sprite flowerBigWhiff;
+    public Sprite flowerNoWhiff;
+    private float gameDuration = 10f; // Each game lasts 5 seconds
     private bool gameStarted = false;
     private float gameTimeRemaining;
     private GameObject herbObject;
     private Player player;
-    public FloraData floraData;
     private UIManager uiManager;
     private MinigameManager minigameManager;
+    private float targetMin, targetMax; // Target interval for the breath meter
+    private int sampleCount = 0; // Number of successful matches
 
-    private void Awake()
-    {
-        return;
-    }
 
     void Start()
     {
-        //Set the GameObject scripts
-        GameObject playerObject = GameObject.Find("Player");
-        player = playerObject.GetComponent<Player>();
-        GameObject uiManagerObject = GameObject.Find("UIManager");
-        uiManager = uiManagerObject.GetComponent<UIManager>();
-        GameObject minigameManagerObject = GameObject.Find("MinigameManager");
-        minigameManager = minigameManagerObject.GetComponent<MinigameManager>();
+        EventTrigger trigger = sliderMeter.gameObject.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener((data) => OnPointerUp((PointerEventData)data));
+        trigger.triggers.Add(entry);
 
-        gameTimeRemaining = gameDuration;
-        progressMeter.maxValue = 90;
-        progressMeter.value = 0;
+        // Unlock and show cursor
+        Cursor.lockState = CursorLockMode.None; // Free the cursor
+        Cursor.visible = true; // Make the cursor visible
+
+        SetupGameObjects();
+        SetupUI();
         StartGame();
     }
 
     void Update()
     {
-        if (gameStarted && gameTimeRemaining > 0)
+        if (gameStarted)
         {
-            UpdateGameplay();
+            gameTimeRemaining -= Time.deltaTime;
+            gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " Seconds Left!";
+            CheckGameOver();
         }
-        else if (gameStarted)
+    }
+
+    private void SetupGameObjects()
+    {
+        player = GameObject.Find("Player").GetComponent<Player>();
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        minigameManager = GameObject.Find("MinigameManager").GetComponent<MinigameManager>();
+    }
+
+    private void SetupUI()
+    {
+        sliderMeter.maxValue = 50;
+        sliderMeter.onValueChanged.AddListener(HandleSliderChange);
+        sliderMeter.value = 0;
+
+        sampleCountText.text = "";
+        aromaTargetIntervalText.text = "";
+        sliderMeterText.text = "aroma intake: 0";
+        SetRandomTargets();
+    }
+
+    private void StartGame()
+    {
+        gameTimeRemaining = gameDuration;
+        gameStarted = true;
+        sampleCount = 0;
+    }
+
+    private void HandleSliderChange(float value)
+    {
+        // This function can be used if needed to react to slider changes.
+        sliderMeterText.text = "aroma intake: " + Mathf.RoundToInt(value).ToString();
+        if (sliderMeter.value >= targetMin && sliderMeter.value <= targetMax)
+        {
+            // Set images for "inside interval"
+            noseImage.sprite = noseBigWhiff;
+            flowerImage.sprite = flowerBigWhiff;
+        }
+        else
+        {
+            // Set images for "outside interval"
+            noseImage.sprite = noseNoWhiff;
+            flowerImage.sprite = flowerNoWhiff;
+        }
+    }
+
+    private void SetRandomTargets()
+    {
+        targetMin = Random.Range(0, 47); // Maximum is 47 to ensure the interval does not exceed 50
+        targetMax = targetMin + 4; // Fixed range of 4 points
+        aromaTargetIntervalText.text = "aroma Interval: [" + targetMin + "," + targetMax + "]";
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (sliderMeter.value >= targetMin && sliderMeter.value <= targetMax)
+        {
+            sampleCount++;
+            sampleCountText.text = ("Sample count: " + sampleCount);
+            SetRandomTargets();
+        }
+        else
         {
             LoseGame();
         }
+        sliderMeter.value = 0; // Reset player's slider to 0
     }
 
-    void UpdateGameplay()
+    private void CheckGameOver()
     {
-        gameTimeRemaining -= Time.deltaTime;
-        gameCountdownText.text = Mathf.CeilToInt(gameTimeRemaining).ToString() + " Seconds Left!";
-        // Handle game input
-        if (Input.GetMouseButtonDown(0))
+        if (gameTimeRemaining <= 0)
         {
-            WinGame();
+            gameStarted = false;
+            if (sampleCount > 0)
+                WinGame();
+            else
+                LoseGame();
         }
     }
 
-    void StartGame()
+    private void WinGame()
     {
-        //instructionsText.text = "Ipsum Lorem";
-        gameStarted = true;
+        gameStarted = false;
+        player.IncreasePlantMaterial(sampleCount);
+        player.DecreaseEnergy(1f);
+        uiManager.UpdateNotificationQueue("Surprised you save that one");
+        minigameManager.ReturnToMainScene();
     }
 
-    void WinGame()
+    private void LoseGame()
     {
-        gameStarted = false; // End game updates
-
-        // Update game variables
-        if (player != null)
-        {
-            player.IncreasePlantMaterial(5);
-            player.DecreaseEnergy(1f);
-        }
-
-        //Update notifications
-        uiManager.UpdateNotificationQueue("Surprised you saved this one");
-        // Return back to world
-        minigameManager.ReturnToMainScene(); // Return to the procedural world
-    }
-
-    void LoseGame()
-    {
-        gameStarted = false; // End game updates
-
-        // Update game variables
-        if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
-        //TODO: Decrease crop spawn rate
+        gameStarted = false;
+        if (herbObject != null) herbObject.SetActive(false);
         player.decreasePhytomass();
-        if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
-
-        // Update notifications
-        uiManager.UpdateNotificationQueue("Killing the ecosystem one plant at a time");
-
-        // Return back to world
-        minigameManager.ReturnToMainScene(); // Return to the procedural world
+        player.DecreaseEnergy(1.5f);
+        uiManager.UpdateNotificationQueue("You killed it...");
+        minigameManager.ReturnToMainScene();
     }
 
-    // Local herb object set from Minigame Manager.cs
     public void SetHerb(GameObject herb) { herbObject = herb; }
 }
