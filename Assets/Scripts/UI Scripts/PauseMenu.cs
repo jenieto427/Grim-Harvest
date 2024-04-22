@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public static bool optionsIsUp = false;
     public GameObject pauseMenuUI;
+    public Player player;
     //public GameObject optionsMenuUI;
 
     //public GameObject cameraController;
@@ -33,28 +34,6 @@ public class PauseMenu : MonoBehaviour
             {
                 Pause();
             }
-        }
-
-        else if (Input.GetKeyDown(KeyCode.M) && gameIsPaused)
-        {
-            LoadMenu();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.O) && gameIsPaused)
-        {
-            Options();
-
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Q) && gameIsPaused)
-        {
-            QuitGame();
-        }
-
-        else if(Input.GetKeyDown(KeyCode.Y) && optionsIsUp)
-        {
-       // Component cc = cameraController.GetComponent<CameraLookController>;
-           
         }
         
     }
@@ -101,7 +80,17 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public  void LoadBtn()
+    {
+        SaveSystem.LoadPlayer();
+        Debug.Log("Load");
+    }
 
+    public void SaveBtn()
+    {
+        Debug.Log("Save");
+        SaveSystem.SavePlayer(player);
+    }
 
     public void QuitGame()
     {
