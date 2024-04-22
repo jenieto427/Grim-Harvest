@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI notificationText; // UI element for notications
     public TextMeshProUGUI interactionText; // UI element for interactions
     private Queue<string> notificationQueue = new Queue<string>(); // Notification string queue
+    private string lastInteractionText = "";
 
     private void Awake() { return; }
 
@@ -49,7 +50,14 @@ public class UIManager : MonoBehaviour
     // For Interactions through the raycast reticle
     public void UpdateInteractionUI(String interactionString)
     {
-        interactionText.text = interactionString;
+        if (interactionString != lastInteractionText)
+        {
+            lastInteractionText = interactionString;
+            interactionText.text = interactionString;
+            // Optionally, force a canvas update if needed
+            Canvas.ForceUpdateCanvases();
+        }
+        //interactionText.text = interactionString;
     }
     public void UpdatePlayerUI()
     {
