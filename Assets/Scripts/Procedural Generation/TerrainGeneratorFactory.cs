@@ -82,7 +82,6 @@ public class TerrainGeneratorFactory : MonoBehaviour
 
 	void DetermineTextureDataSheets(MapGenerator terrainGenerator) {
 		int phytomass = playerPrefab.GetComponentInChildren<Player>().phytomass;
-		phytomass = 70;
 		TerrainDataCollection dataSheet = null;
 
 		foreach (TerrainDataCollection sheet in environmentDataSheets)
