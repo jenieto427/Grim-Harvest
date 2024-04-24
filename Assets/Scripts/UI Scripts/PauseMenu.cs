@@ -19,10 +19,10 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("pause");
-            if(gameIsPaused)
+            if (gameIsPaused)
             {
                 Resume();
             }
@@ -35,17 +35,17 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-        
+
     }
 
-    public void Resume() 
+    public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+
     }
 
     void Pause()
@@ -80,21 +80,21 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    public  void LoadBtn()
+    public void LoadBtn()
     {
-        SaveSystem.LoadPlayer();
+        player.LoadPlayerPrefs();
         Debug.Log("Load");
     }
 
     public void SaveBtn()
     {
         Debug.Log("Save");
-        SaveSystem.SavePlayer(player);
+        player.SavePlayerPrefs();
     }
 
     public void QuitGame()
     {
         Application.Quit();
-       // UnityEditor.EditorApplication.isPlaying = false;
+        // UnityEditor.EditorApplication.isPlaying = false;
     }
 }
