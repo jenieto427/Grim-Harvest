@@ -82,8 +82,8 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadBtn()
     {
-        player.LoadPlayerPrefs();
         Debug.Log("Load");
+        player.LoadPlayerPrefs();
     }
 
     public void SaveBtn()
@@ -94,6 +94,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Quit");
         Application.Quit();
         // UnityEditor.EditorApplication.isPlaying = false;
     }
