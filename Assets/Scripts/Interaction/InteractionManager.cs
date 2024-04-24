@@ -5,11 +5,16 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     private UIManager uiManager;
+    private NPCWizardAnimationController animationController;
+
 
     private void Awake()
     {
         GameObject uiManagerObject = GameObject.Find("UIManager");
         uiManager = uiManagerObject.GetComponent<UIManager>();
+        GameObject npcObject = GameObject.Find("Wizard"); // Replace "NPC" with your NPC's name in the scene
+        animationController = npcObject.GetComponent<NPCWizardAnimationController>();
+
     }
 
     public void HandleVendorInteraction(Player player, GameObject vendor)
@@ -19,13 +24,15 @@ public class InteractionManager : MonoBehaviour
         {
             player.DecreasePlantMaterial(cost); // Reduce samples/money
             player.IncrementStimulant(); // Increment stimulant count 
-            // Show success message
+            // Show success messages
             uiManager.UpdateNotificationQueue("Bought a drug");
+            animationController.TriggerYes();
         }
         else
         {
-            // Show error message of failed purchase
+            // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
+            animationController.TriggerNo();
         }
     }
 }
