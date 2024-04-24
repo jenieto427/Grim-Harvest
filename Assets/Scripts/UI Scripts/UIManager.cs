@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI wakefulText;  // UI element for energy
     public TextMeshProUGUI plantMaterialText;  // UI element for plant material
     public TextMeshProUGUI stimulantText;  // UI element for plant material
+    public TextMeshProUGUI phytomassText; // UI element for phytomass
     public TextMeshProUGUI notificationText; // UI element for notications
     public TextMeshProUGUI interactionText; // UI element for interactions
     private Queue<string> notificationQueue = new Queue<string>(); // Notification string queue
@@ -88,6 +89,8 @@ public class UIManager : MonoBehaviour
 
             plantMaterialText.text = "Data & Plant Materials: " + player.plantMaterial.ToString() + " samples";
             stimulantText.text = "Stimulants: " + player.stimulant.ToString();
+            phytomassText.text = "Phytomass: " + player.phytomass.ToString();
+
         }
     }
 }

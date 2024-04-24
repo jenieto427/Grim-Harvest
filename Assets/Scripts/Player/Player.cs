@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public int plantMaterial = 0;
     public int stimulant = 0;
     public float energyBound = 30;
-    public int phytomass = 50; //Start with default 50 mass
+    public int phytomass = 20; //Start with default 50 mass
     public UIManager uiManager;
 
     void Start()
@@ -64,15 +64,15 @@ public class Player : MonoBehaviour
         if (this.stimulant < 0) { this.energy = 0; } //Clamp stimulants low bound to 0
         SavePlayerPrefs();
     }
-    public void decreasePhytomass()
+    public void decreasePhytomass(int decreaseAmt)
     {
         if (this.phytomass <= 0) { this.phytomass = 2; }
-        this.phytomass -= 2;
+        this.phytomass -= decreaseAmt;
     }
-    public void increasePhytomass()
+    public void increasePhytomass(int increaseAmt)
     {
         if (this.phytomass > 100) { this.phytomass = 100; }
-        this.phytomass += 2;
+        this.phytomass += increaseAmt;
     }
     public void IncrementStimulant()
     {

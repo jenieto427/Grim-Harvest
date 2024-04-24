@@ -139,6 +139,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
     {
         gameStarted = false;
         player.IncreasePlantMaterial(sampleCount);
+        player.increasePhytomass(2);
         player.DecreaseEnergy(1f);
         uiManager.UpdateNotificationQueue("Surprised you saved that one");
         minigameManager.ReturnToMainScene();
@@ -147,8 +148,8 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
     private void LoseGame()
     {
         gameStarted = false;
-        if (herbObject != null) herbObject.SetActive(false);
-        player.decreasePhytomass();
+        if (herbObject != null) { herbObject.SetActive(false); }
+        player.decreasePhytomass(2);
         player.DecreaseEnergy(1.5f);
         uiManager.UpdateNotificationQueue("You killed it...");
         minigameManager.ReturnToMainScene();

@@ -91,7 +91,7 @@ public class DefaultMinigame : MonoBehaviour
         // Update game variables
         if (herbObject != null) { herbObject.SetActive(false); } // Disable plant GameObject
         //TODO: Decrease crop spawn rate
-        player.decreasePhytomass();
+        player.decreasePhytomass(2);
         if (player != null) { player.DecreaseEnergy(1.5f); } // Decrease Energy
 
         // Update notifications
