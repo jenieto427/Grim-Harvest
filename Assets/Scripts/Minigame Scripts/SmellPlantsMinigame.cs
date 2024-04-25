@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems; // For UI event handling
+using UnityEngine.SceneManagement;
 
 public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface to detect pointer release
 {
@@ -137,22 +138,39 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
 
     private void WinGame()
     {
-        gameStarted = false;
-        player.IncreasePlantMaterial(sampleCount);
-        player.increasePhytomass(2);
+        gameStarted = false; // Stop game running
+        // Rewards
+        if (SceneManager.GetActiveScene().name == "Village")
+        {
+            player.IncreasePlantMaterial(1); // Player is rewarded only 1 sample in village
+        }
+        else
+        {
+            player.IncreasePlantMaterial(sampleCount); // Player is rewarded best in pro world
+            player.increasePhytomass(2); // Player also affects the flora generation
+        }
         player.DecreaseEnergy(1f);
+
+        // UI update
         uiManager.UpdateNotificationQueue("Surprised you saved that one");
-        minigameManager.ReturnToMainScene();
+        minigameManager.ReturnToMainScene(); //Return to main scene
     }
 
     private void LoseGame()
     {
-        gameStarted = false;
+        gameStarted = false; // Stop game running
+
+        // Punishments
+        if (SceneManager.GetActiveScene().name == "MapGenerationTest")
+        {
+            player.decreasePhytomass(2); // Player only affects generation in pro world
+        }
         if (herbObject != null) { herbObject.SetActive(false); }
-        player.decreasePhytomass(2);
         player.DecreaseEnergy(1.5f);
+
+        // UI update
         uiManager.UpdateNotificationQueue("You killed it...");
-        minigameManager.ReturnToMainScene();
+        minigameManager.ReturnToMainScene(); // Return to main scene
     }
 
     public void SetHerb(GameObject herb) { herbObject = herb; }
