@@ -12,6 +12,14 @@ public class MinigameManager : MonoBehaviour
     {
         // Attempt to find the Player and UI-Interact GameObjects
         player = GameObject.Find("Player");
+        if (player != null)
+        {
+            Debug.Log("Player found successfully.");
+        }
+        else
+        {
+            Debug.Log("Player not found. Check the GameObject name in the scene.");
+        }
         uiInteract = GameObject.Find("Interact-UI");
         // Store the initial scene's name
         initialSceneName = SceneManager.GetActiveScene().name;
