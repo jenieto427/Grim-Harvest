@@ -12,14 +12,6 @@ public class MinigameManager : MonoBehaviour
     {
         // Attempt to find the Player and UI-Interact GameObjects
         player = GameObject.Find("Player");
-        if (player != null)
-        {
-            Debug.Log("Player found successfully.");
-        }
-        else
-        {
-            Debug.Log("Player not found. Check the GameObject name in the scene.");
-        }
         uiInteract = GameObject.Find("Interact-UI");
         // Store the initial scene's name
         initialSceneName = SceneManager.GetActiveScene().name;
@@ -27,8 +19,8 @@ public class MinigameManager : MonoBehaviour
 
     public void TriggerMinigame(GameObject herb)
     {
-        // Disable the Player and UI-Interact objects
-        LockPlayerMovement(true);
+        // Disable the Player and UI-Interact objects, enable mouse and cursor
+        LockObjects(true);
 
         // Load a minigame additively
         SceneManager.LoadScene("SmellPlants", LoadSceneMode.Additive);
@@ -55,32 +47,24 @@ public class MinigameManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(initialSceneName));
 
         // Re-enable the Player and UI-Interact objects
-        LockPlayerMovement(false);
+        LockObjects(false);
     }
 
-    private void LockPlayerMovement(bool lockMovement)
+    private void LockObjects(bool locked)
     {
-        if (player)
+        if (locked)
         {
-            Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
-            if (playerRigidbody != null)
-            {
-                if (lockMovement)
-                {
-                    // Freeze all player movement including rotation
-                    playerRigidbody.constraints = RigidbodyConstraints.FreezeAll;
-                }
-                else
-                {
-                    // Unfreeze all to free position, then reapply freeze to rotation
-                    playerRigidbody.constraints = RigidbodyConstraints.None;
-                    playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-                    // Unlock and show cursor
-                    Cursor.lockState = CursorLockMode.Locked; // Free the cursor
-                    Cursor.visible = false; // Make the cursor visible
-                }
-            }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            player.SetActive(false);
+            uiInteract.SetActive(false);
         }
-        if (uiInteract) uiInteract.SetActive(!lockMovement);
+        else if (!locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            player.SetActive(true);
+            uiInteract.SetActive(true);
+        }
     }
 }

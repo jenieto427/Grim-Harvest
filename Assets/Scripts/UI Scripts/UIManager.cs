@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    public Player player;
+    private PlayerDataManager playerDataManager;
     public TextMeshProUGUI wakefulText;  // UI element for energy
     public TextMeshProUGUI plantMaterialText;  // UI element for plant material
     public TextMeshProUGUI stimulantText;  // UI element for plant material
@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour
     private Queue<string> notificationQueue = new Queue<string>(); // Notification string queue
     private string lastInteractionText = "";
 
-    private void Awake() { return; }
+    private void Awake()
+    {
+        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
+    }
 
     void Update()
     {
@@ -62,34 +65,34 @@ public class UIManager : MonoBehaviour
     }
     public void UpdatePlayerUI()
     {
-        if (player != null)
+        if (playerDataManager != null)
         {
             // Update text elements with the current player attributes
-            if (player.energy > 13f) //Player is wakeful at 13KHz
+            if (playerDataManager.energy > 13f) //Player is wakeful at 13KHz
             {
-                wakefulText.text = "Beta Activity: " + player.energy.ToString() + " Hz";
+                wakefulText.text = "Beta Activity: " + playerDataManager.energy.ToString() + " Hz";
             }
-            else if (player.energy >= 8f) //Player is sleepy below 13KHz to 8KHz
+            else if (playerDataManager.energy >= 8f) //Player is sleepy below 13KHz to 8KHz
             {
-                wakefulText.text = "Alpha Activity: " + player.energy.ToString() + " Hz";
+                wakefulText.text = "Alpha Activity: " + playerDataManager.energy.ToString() + " Hz";
                 //TODO: Notification to player that they are sleepy
             }
-            else if (player.energy >= 4f)
+            else if (playerDataManager.energy >= 4f)
             {
-                wakefulText.text = "Theta Activity: " + player.energy.ToString() + " Hz";
+                wakefulText.text = "Theta Activity: " + playerDataManager.energy.ToString() + " Hz";
             }
-            else if (player.energy >= 1f)
+            else if (playerDataManager.energy >= 1f)
             {
-                wakefulText.text = "Delta Activity: " + player.energy.ToString() + " Hz";
+                wakefulText.text = "Delta Activity: " + playerDataManager.energy.ToString() + " Hz";
             }
-            else if (player.energy < 1f)
+            else if (playerDataManager.energy < 1f)
             {
-                wakefulText.text = "Below Delta: " + player.energy.ToString() + " Hz";
+                wakefulText.text = "Below Delta: " + playerDataManager.energy.ToString() + " Hz";
             }
 
-            plantMaterialText.text = "Data & Plant Materials: " + player.plantMaterial.ToString() + " samples";
-            stimulantText.text = "Stimulants: " + player.stimulant.ToString();
-            phytomassText.text = "Phytomass: " + player.phytomass.ToString();
+            plantMaterialText.text = "Data & Plant Materials: " + playerDataManager.plantMaterial.ToString() + " samples";
+            stimulantText.text = "Stimulants: " + playerDataManager.stimulant.ToString();
+            phytomassText.text = "Phytomass: " + playerDataManager.phytomass.ToString();
 
         }
     }

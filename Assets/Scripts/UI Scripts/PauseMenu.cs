@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public static bool optionsIsUp = false;
     public GameObject pauseMenuUI;
-    public Player player;
+    public PlayerDataManager playerDataManager;
     //public GameObject optionsMenuUI;
 
     //public GameObject cameraController;
@@ -83,13 +83,13 @@ public class PauseMenu : MonoBehaviour
     public void LoadBtn()
     {
         Debug.Log("Load");
-        player.LoadPlayerPrefs();
+        playerDataManager.LoadPlayerPrefs();
     }
 
     public void SaveBtn()
     {
         Debug.Log("Save");
-        player.SavePlayerPrefs();
+        playerDataManager.SavePlayerPrefs();
     }
 
     public void QuitGame()

@@ -5,11 +5,13 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     private UIManager uiManager;
+    private PlayerDataManager playerDataManager;
     private NPCWizardAnimationController animationController;
 
 
     private void Awake()
     {
+        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
         GameObject uiManagerObject = GameObject.Find("UIManager");
         uiManager = uiManagerObject.GetComponent<UIManager>();
         GameObject npcObject = GameObject.Find("Wizard"); // Replace "NPC" with your NPC's name in the scene
@@ -17,13 +19,13 @@ public class InteractionManager : MonoBehaviour
 
     }
 
-    public void HandleVendorInteraction(Player player, GameObject vendor)
+    public void HandleVendorInteraction()
     {
         int cost = 5; // Cost in plant materials for one stimulant
-        if (player.plantMaterial >= cost)
+        if (playerDataManager.plantMaterial >= cost)
         {
-            player.DecreasePlantMaterial(cost); // Reduce samples/money
-            player.IncrementStimulant(); // Increment stimulant count 
+            playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
+            playerDataManager.IncrementStimulant(); // Increment stimulant count 
             // Show success messages
             uiManager.UpdateNotificationQueue("Bought a drug");
             animationController.TriggerYes();

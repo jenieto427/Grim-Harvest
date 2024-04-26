@@ -11,9 +11,11 @@ public class CameraLookController : MonoBehaviour
     public MinigameManager minigameManager;
     public InteractionManager interactionManager;
     public Player player;
+    private PlayerDataManager playerDataManager;
 
     void Start()
     {
+        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
     }
 
@@ -67,7 +69,7 @@ public class CameraLookController : MonoBehaviour
             if (isMouseClicked)
             {
                 // Check if the player has energy
-                if (player.energy <= 1)
+                if (playerDataManager.energy <= 1)
                 {
                     uiManager.UpdateNotificationQueue("Your brain isn't capable of work");
                     return;
@@ -81,7 +83,7 @@ public class CameraLookController : MonoBehaviour
         {
             if (isMouseClicked)
             {
-                interactionManager.HandleVendorInteraction(player, hit.collider.gameObject);
+                interactionManager.HandleVendorInteraction();
             }
             uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
         }

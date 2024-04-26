@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerData : MonoBehaviour
+public class PlayerDataManager : MonoBehaviour
 {
     public float energy = 30;
     public int plantMaterial = 0;
@@ -9,12 +9,14 @@ public class PlayerData : MonoBehaviour
     public float energyBound = 30;
     public int phytomass = 20; //Start with default 50 mass
     public int seenTutorial = 0; // 0 Is false
-    public UIManager uiManager;
-    public Player player;
+    private UIManager uiManager;
+    private Player player;
 
     void Start()
     {
         LoadPlayerPrefs();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
     public void Travel()
     {

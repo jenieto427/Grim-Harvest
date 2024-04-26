@@ -24,15 +24,16 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
     private bool gameStarted = false;
     private float gameTimeRemaining;
     private GameObject herbObject;
-    private Player player;
     private UIManager uiManager;
     private MinigameManager minigameManager;
+    private PlayerDataManager playerDataManager;
     private float targetMin, targetMax; // Target interval for the breath meter
     private int sampleCount = 0; // Number of successful matches
 
 
     void Start()
     {
+        //For handling mouse and slider onClick event
         EventTrigger trigger = sliderMeter.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerUp;
@@ -60,7 +61,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
 
     private void SetupGameObjects()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         minigameManager = GameObject.Find("MinigameManager").GetComponent<MinigameManager>();
     }
@@ -142,14 +143,14 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         // Rewards
         if (SceneManager.GetActiveScene().name == "Village")
         {
-            player.IncreasePlantMaterial(1); // Player is rewarded only 1 sample in village
+            playerDataManager.IncreasePlantMaterial(1); // Player is rewarded only 1 sample in village
         }
         else
         {
-            player.IncreasePlantMaterial(sampleCount); // Player is rewarded best in pro world
-            player.increasePhytomass(2); // Player also affects the flora generation
+            playerDataManager.IncreasePlantMaterial(sampleCount); // Player is rewarded best in pro world
+            playerDataManager.increasePhytomass(2); // Player also affects the flora generation
         }
-        player.DecreaseEnergy(1f);
+        playerDataManager.DecreaseEnergy(1f);
 
         // UI update
         uiManager.UpdateNotificationQueue("Surprised you saved that one");
@@ -163,10 +164,10 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         // Punishments
         if (SceneManager.GetActiveScene().name == "MapGenerationTest")
         {
-            player.decreasePhytomass(2); // Player only affects generation in pro world
+            playerDataManager.decreasePhytomass(2); // Player only affects generation in pro world
         }
         if (herbObject != null) { herbObject.SetActive(false); }
-        player.DecreaseEnergy(1.5f);
+        playerDataManager.DecreaseEnergy(1.5f);
 
         // UI update
         uiManager.UpdateNotificationQueue("You killed it...");
