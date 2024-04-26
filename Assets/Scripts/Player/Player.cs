@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +8,7 @@ public class Player : MonoBehaviour
     public int stimulant = 0;
     public float energyBound = 30;
     public int phytomass = 20; //Start with default 50 mass
+    public int seenTutorial = 0; // 0 Is false
     public UIManager uiManager;
 
     void Start()
@@ -57,6 +56,22 @@ public class Player : MonoBehaviour
         {
             uiManager.UpdateNotificationQueue("You don't have any stims...");
         }
+    }
+    public void setSeenTutorialFalse()
+    {
+        this.seenTutorial = 0;
+        SavePlayerPrefs();
+    }
+    public void setSeenTutorialTrue()
+    {
+        this.seenTutorial = 1;
+        SavePlayerPrefs();
+
+    }
+    public bool boolSeenTutorial()
+    {
+        if (this.seenTutorial == 0) { return false; }
+        else { return true; }
     }
     public void DecrementStimulant()
     {
@@ -121,7 +136,7 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetInt("Stimulant", stimulant);
         PlayerPrefs.SetFloat("EnergyBound", energyBound);
         PlayerPrefs.SetInt("Phytomass", phytomass);
-
+        PlayerPrefs.SetInt("seenTutorial", seenTutorial);
         PlayerPrefs.Save();  // Don't forget to call Save to write to disk
 
         //uiManager.UpdateInteractionUI("Saved player stats");
@@ -134,7 +149,7 @@ public class Player : MonoBehaviour
         stimulant = PlayerPrefs.GetInt("Stimulant", 0);  // Default to 0 if not set
         energyBound = PlayerPrefs.GetFloat("EnergyBound", 30);  // Default to 30 if not set
         phytomass = PlayerPrefs.GetInt("Phytomass", 0);  // Default to 0 if not set
-
+        PlayerPrefs.SetInt("seenTutorial", seenTutorial);
         //uiManager.UpdateInteractionUI("Loaded player stats");
     }
 

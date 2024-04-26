@@ -3,10 +3,10 @@ using System.Collections;
 
 public class RigidController : MonoBehaviour
 {
-    public float speed = 40.0f;
-    public float jumpForce = 1000.0f;
+    public float speed = 8.0f;
+    public float jumpForce = 100.0f;
     public Transform cameraTransform; // Assign your Camera's Transform here in the Inspector
-    public float sprintMultiplier = 1.0f; // Multiplier to apply to speed when sprinting
+    public float sprintMultiplier = 1.375f; // Multiplier to apply to speed when sprinting
     public float doublePressTime = 0.25f; // Time frame for double press
     public float sprintDuration = 3.0f; // Duration of the sprint in seconds
     public LayerMask groundLayer; // Set this in the Inspector to match your terrain's layer
@@ -80,7 +80,7 @@ public class RigidController : MonoBehaviour
 
     bool IsGrounded()
     {
-        float rayLength = 4.0f; // distance from floor mesh collision
+        float rayLength = 2.0f; // distance from floor mesh collision
         Vector3 rayStart = transform.position + Vector3.up * 0.1f; // Start slightly above the player's pivot
 
         bool hasHit = Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, rayLength, groundLayer);
