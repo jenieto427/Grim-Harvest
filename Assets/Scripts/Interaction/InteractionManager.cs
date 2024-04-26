@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class InteractionManager : MonoBehaviour
         GameObject uiManagerObject = GameObject.Find("UIManager");
         uiManager = uiManagerObject.GetComponent<UIManager>();
         GameObject npcObject = GameObject.Find("Wizard"); // Replace "NPC" with your NPC's name in the scene
-        animationController = npcObject.GetComponent<NPCWizardAnimationController>();
+        if (SceneManager.GetActiveScene().name == "Village")
+        {
+            animationController = npcObject.GetComponent<NPCWizardAnimationController>();
+        }
 
     }
 

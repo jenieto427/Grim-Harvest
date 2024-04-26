@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,10 @@ public class PauseMenu : MonoBehaviour
     //public GameObject optionsMenuUI;
 
     //public GameObject cameraController;
+    void Awake()
+    {
+        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
+    }
 
 
     void Update()
@@ -95,7 +100,11 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quit");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
-        // UnityEditor.EditorApplication.isPlaying = false;
+#endif
+
     }
 }
