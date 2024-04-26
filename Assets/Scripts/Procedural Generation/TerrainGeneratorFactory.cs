@@ -71,6 +71,7 @@ public class TerrainGeneratorFactory : MonoBehaviour
 		mapGenerator.drawMode = DRAW_MODE;
 		mapGenerator.noiseHeightEstimation = NOISE_HEIGHT_ESTIMATION;
 		mapGenerator.editorPreviewLOD = EDITOR_PREVIEW_LOD;
+		mapGenerator.editorMapIsEnabled = false;
 		mapGenerator.autoUpdate = AUTO_UPDATE;
 
 		//Endless Terrain Values
@@ -94,6 +95,7 @@ public class TerrainGeneratorFactory : MonoBehaviour
 					if (sheet.phytomassThreshold > dataSheet.phytomassThreshold)
 					{
 						dataSheet = sheet;
+						dataSheet.disableAutoUpdate();
 					}
 				} else
 				{

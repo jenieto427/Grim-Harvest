@@ -27,6 +27,8 @@ public class MapGenerator : MonoBehaviour
     [Range(0, 6)]
     public int editorPreviewLOD;
 
+    public bool editorMapIsEnabled = false;
+
     public bool autoUpdate;
 
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
@@ -62,6 +64,8 @@ public class MapGenerator : MonoBehaviour
 
 	public void DrawMapInEditor()
     {
+        if (!editorMapIsEnabled) return;
+
 		textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
 		MapData mapData = GenerateMapData(Vector2.zero);
