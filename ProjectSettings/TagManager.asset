@@ -9,6 +9,8 @@ TagManager:
   - NPC
   - NPC Vendor
   - Factory
+  - ResearchBook
+  - DungeonDoor
   layers:
   - Default
   - TransparentFX
