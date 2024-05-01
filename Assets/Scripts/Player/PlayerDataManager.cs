@@ -9,14 +9,17 @@ public class PlayerDataManager : MonoBehaviour
     public float energyBound = 30;
     public int phytomass = 20; //Start with default 50 mass
     public int seenTutorial = 0; // 0 Is false
-    private UIManager uiManager;
+    public float mouseSensitivity = 120;
     private Player player;
 
     void Start()
     {
         LoadPlayerPrefs();
-        player = GameObject.Find("Player").GetComponent<Player>();
-        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        // The options menu has a special instance of PlayerDataManager to save mouseSensitivity
+        if (SceneManager.GetActiveScene().name != "Options")
+        {
+            player = GameObject.Find("Player").GetComponent<Player>();
+        }
     }
     public void Travel()
     {
@@ -90,6 +93,14 @@ public class PlayerDataManager : MonoBehaviour
         //if (this.plantMaterial > 100000) { this.plantMaterial = 100000; }
         SavePlayerPrefs();
     }
+    public void setMouseSensitivity(float changedAmount)
+    {
+        Debug.Log("Set mouse sensitivity: " + changedAmount.ToString());
+        this.mouseSensitivity = changedAmount;
+        if (this.mouseSensitivity < 100) { this.mouseSensitivity = 100; }
+        else if (this.mouseSensitivity > 200) { this.mouseSensitivity = 200; }
+        SavePlayerPrefs();
+    }
     public void resetPlayerPrefs()
     {
         this.energy = 30;
@@ -107,9 +118,9 @@ public class PlayerDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("EnergyBound", energyBound);
         PlayerPrefs.SetInt("Phytomass", phytomass);
         PlayerPrefs.SetInt("seenTutorial", seenTutorial);
+        PlayerPrefs.SetFloat("MouseSensitivity", mouseSensitivity);
         PlayerPrefs.Save();  // Don't forget to call Save to write to disk
 
-        //uiManager.UpdateInteractionUI("Saved player stats");
     }
 
     public void LoadPlayerPrefs()
@@ -119,7 +130,7 @@ public class PlayerDataManager : MonoBehaviour
         stimulant = PlayerPrefs.GetInt("Stimulant", 0);  // Default to 0 if not set
         energyBound = PlayerPrefs.GetFloat("EnergyBound", 30);  // Default to 30 if not set
         phytomass = PlayerPrefs.GetInt("Phytomass", 0);  // Default to 0 if not set
+        PlayerPrefs.SetFloat("MouseSensitivity", mouseSensitivity); // Default 120f
         PlayerPrefs.SetInt("seenTutorial", seenTutorial);
-        //uiManager.UpdateInteractionUI("Loaded player stats");
     }
 }

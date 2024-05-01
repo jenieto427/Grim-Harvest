@@ -1082,8 +1082,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.97735846, g: 0.9165041, b: 0.7505375, a: 1}
-  m_Intensity: 0.7
+  m_Color: {r: 0.2357165, g: 0.3018868, b: 0.22214311, a: 1}
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1122,7 +1122,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1771,6 +1771,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5765669845068585969, guid: f0728f79715beb4489a4fa2fda0f340d, type: 3}
   m_PrefabInstance: {fileID: 4073468914403609074}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &983367925
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2222437372976559935, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_Name
+      value: Ambience Audio Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32.120575
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.4572144
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 34.810722
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408245792486745789, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0a1f44fb6f2cb04b9aef85dd786d89e, type: 3}
 --- !u!1 &1123192053
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3197,7 @@ SceneRoots:
   - {fileID: 6132350434544059772}
   - {fileID: 398115455649760343}
   - {fileID: 2112613523}
+  - {fileID: 983367925}
   - {fileID: 1383912791}
   - {fileID: 865297640}
   - {fileID: 653984386}

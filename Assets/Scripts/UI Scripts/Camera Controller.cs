@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraLookController : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 120f;
     public Transform orientation; // Reference to the player's body for rotation and possibly positioning
 
     private float xRotation;
@@ -28,8 +28,8 @@ public class CameraLookController : MonoBehaviour
     // Handles 1st person camera looking with mouse
     void HandleMouseLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * playerDataManager.mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * playerDataManager.mouseSensitivity;
 
         yRotation += mouseX * Time.deltaTime;
 
