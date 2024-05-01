@@ -7,27 +7,27 @@ using UnityEngine;
 
 public class TerrainGeneratorFactory : MonoBehaviour
 {
-    public GameObject playerPrefab;
+	public GameObject playerPrefab;
 	/// <summary>
 	/// SET PLAYER TRANSFORM
 	/// </summary>
 
-    //Terrain Objects
-    public Material terrainMaterial;
-    public NoiseData noiseDataDefault;
-    public FloraData floraDataDefault;
-    public List<TerrainDataCollection> environmentDataSheets;
+	//Terrain Objects
+	public Material terrainMaterial;
+	public NoiseData noiseDataDefault;
+	public FloraData floraDataDefault;
+	public List<TerrainDataCollection> environmentDataSheets;
 
 	//Object parents
 	public GameObject generatorPrefab;
-    public GameObject treeParent;
-    public GameObject plantParent;
+	public GameObject treeParent;
+	public GameObject plantParent;
 
-    //Map Generator constants
-    const MapGenerator.DrawMode DRAW_MODE = MapGenerator.DrawMode.Mesh;
-    const float NOISE_HEIGHT_ESTIMATION = 1.12f;
-    const int EDITOR_PREVIEW_LOD = 0;
-    const bool AUTO_UPDATE = true;
+	//Map Generator constants
+	const MapGenerator.DrawMode DRAW_MODE = MapGenerator.DrawMode.Mesh;
+	const float NOISE_HEIGHT_ESTIMATION = 1.12f;
+	const int EDITOR_PREVIEW_LOD = 0;
+	const bool AUTO_UPDATE = true;
 
 	bool mapHasGenerated = false;
 
@@ -81,8 +81,10 @@ public class TerrainGeneratorFactory : MonoBehaviour
 		endlessTerrain.plantParent = plantParent;
 	}
 
-	void DetermineTextureDataSheets(MapGenerator terrainGenerator) {
-		int phytomass = playerPrefab.GetComponentInChildren<Player>().phytomass;
+	void DetermineTextureDataSheets(MapGenerator terrainGenerator)
+	{
+		PlayerDataManager playerDataManager = FindObjectOfType<PlayerDataManager>();
+		int phytomass = playerDataManager.phytomass;
 		TerrainDataCollection dataSheet = null;
 
 		foreach (TerrainDataCollection sheet in environmentDataSheets)
@@ -97,7 +99,8 @@ public class TerrainGeneratorFactory : MonoBehaviour
 						dataSheet = sheet;
 						dataSheet.disableAutoUpdate();
 					}
-				} else
+				}
+				else
 				{
 					dataSheet = sheet;
 				}
@@ -114,8 +117,8 @@ public class TerrainGeneratorFactory : MonoBehaviour
 		}
 	}
 
-    void SetTextureData(MapGenerator terrainGenerator, TerrainDataCollection dataSheet)
-    {
+	void SetTextureData(MapGenerator terrainGenerator, TerrainDataCollection dataSheet)
+	{
 		terrainGenerator.terrainData = dataSheet.terrain;
 		terrainGenerator.textureData = dataSheet.texture;
 		terrainGenerator.noiseData = noiseDataDefault;

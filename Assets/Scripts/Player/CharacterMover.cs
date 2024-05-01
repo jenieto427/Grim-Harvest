@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class RigidController : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class RigidController : MonoBehaviour
     public LayerMask groundLayer; // Set this in the Inspector to match your terrain's layer
 
     private Rigidbody rb;
+    private PlayerAudioManager playerAudioManager;
     private float lastWPressTime = -1f; // Track the last time "W" was pressed
+    private bool wasAirborne = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerAudioManager = GameObject.Find("PlayerAudioManager").GetComponent<PlayerAudioManager>();
     }
 
     void Update()
@@ -37,6 +41,7 @@ public class RigidController : MonoBehaviour
     void FixedUpdate()
     {
         MoveCharacter();
+        CheckLanding();
     }
 
     IEnumerator Sprint()
@@ -63,6 +68,10 @@ public class RigidController : MonoBehaviour
         right.Normalize();
 
         Vector3 direction = (forward * vertical + right * horizontal).normalized;
+        if (direction.magnitude > 0 && IsGrounded()) // Only play sound if there is movement
+        {
+            playerAudioManager.PlayWalkingSound(); // Call to play walking sound
+        }
         Vector3 movement = direction * speed * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + movement);
@@ -74,7 +83,11 @@ public class RigidController : MonoBehaviour
 
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (SceneManager.GetActiveScene().name == "MapGenerationTest")
+            { rb.AddForce(Vector3.up * jumpForce * 2, ForceMode.Impulse); }
+            else { rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); }
+            playerAudioManager.StopWalkingSound();
+            wasAirborne = true;
         }
     }
 
@@ -87,5 +100,16 @@ public class RigidController : MonoBehaviour
         Debug.DrawRay(rayStart, Vector3.down * rayLength, Color.blue, 1f); // Now with a duration of 1 second and a more visible color.
         return hasHit;
     }
-
+    void CheckLanding()
+    {
+        if (wasAirborne && IsGrounded())
+        {
+            playerAudioManager.PlayWalkingSound(); // Play walking sound when landing
+            wasAirborne = false;
+        }
+        else if (!IsGrounded())
+        {
+            wasAirborne = true; // Set wasAirborne to true when the character is not grounded
+        }
+    }
 }

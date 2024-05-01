@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 public class MapGenerator : MonoBehaviour
 {
-    public enum DrawMode {NoiseMap, Mesh}
+    public enum DrawMode { NoiseMap, Mesh }
     public DrawMode drawMode;
 
     public TerrainData terrainData;
@@ -34,12 +34,12 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-	public void OnSceneLoad()
-	{
-		textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
-	}
+    public void OnSceneLoad()
+    {
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+    }
 
-	public int mapChunkSize
+    public int mapChunkSize
     {
         get
         {
@@ -49,9 +49,9 @@ public class MapGenerator : MonoBehaviour
 
     void OnValuesUpdated()
     {
-		textureData.ApplyToMaterial(terrainMaterial);
+        textureData.ApplyToMaterial(terrainMaterial);
 
-		if (!Application.isPlaying)
+        if (!Application.isPlaying)
         {
             DrawMapInEditor();
         }
@@ -62,26 +62,68 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-	public void DrawMapInEditor()
+    public void DrawMapInEditor()
     {
         if (!editorMapIsEnabled) return;
 
-		textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+        // Check for null on textureData and terrainMaterial
+        if (textureData == null)
+        {
+            Debug.LogError("TextureData is null.");
+            return;
+        }
 
-		MapData mapData = GenerateMapData(Vector2.zero);
+        if (terrainMaterial == null)
+        {
+            Debug.LogError("TerrainMaterial is null.");
+            return;
+        }
 
-		//Find and update map with noise map
-		MapDisplay display = FindObjectOfType<MapDisplay>();
-		if (drawMode == DrawMode.NoiseMap)
-		{
-			display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
-		}
-		else if (drawMode == DrawMode.Mesh)
-		{
+        if (terrainData == null)
+        {
+            Debug.LogError("TerrainData is null.");
+            return;
+        }
+
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+
+        MapData mapData = GenerateMapData(Vector2.zero);
+
+        // Ensure MapDisplay is found
+        MapDisplay display = FindObjectOfType<MapDisplay>();
+        if (display == null)
+        {
+            Debug.LogError("No MapDisplay found in the scene.");
+            return;
+        }
+
+        // Drawing based on drawMode
+        if (drawMode == DrawMode.NoiseMap)
+        {
+            if (mapData.heightMap == null)
+            {
+                Debug.LogError("HeightMap is null.");
+                return;
+            }
+            display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
+        }
+        else if (drawMode == DrawMode.Mesh)
+        {
+            if (terrainData.meshHeightCurve == null)
+            {
+                Debug.LogError("MeshHeightCurve is null.");
+                return;
+            }
             MeshData generatedMesh = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, editorPreviewLOD, terrainData.useFlatShading);
+            if (generatedMesh == null)
+            {
+                Debug.LogError("GeneratedMesh is null.");
+                return;
+            }
             display.DrawMesh(generatedMesh);
-		}
-	}
+        }
+    }
+
 
     public void RequestMapData(Vector2 center, Action<MapData> callback)
     {
@@ -112,18 +154,18 @@ public class MapGenerator : MonoBehaviour
         new Thread(threadStart).Start();
     }
 
-    void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback) 
+    void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
         MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, lod, terrainData.useFlatShading);
-        lock(meshDataThreadInfoQueue)
+        lock (meshDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
         }
     }
 
-	void Update()
-	{
-		if (mapDataThreadInfoQueue.Count > 0)
+    void Update()
+    {
+        if (mapDataThreadInfoQueue.Count > 0)
         {
             for (int i = 0; i < mapDataThreadInfoQueue.Count; i++)
             {
@@ -134,15 +176,15 @@ public class MapGenerator : MonoBehaviour
 
         if (meshDataThreadInfoQueue.Count > 0)
         {
-            for (int i = 0;i < meshDataThreadInfoQueue.Count;i++)
+            for (int i = 0; i < meshDataThreadInfoQueue.Count; i++)
             {
                 MapThreadInfo<MeshData> threadInfo = meshDataThreadInfoQueue.Dequeue();
                 threadInfo.callback(threadInfo.parameter);
             }
         }
-	}
+    }
 
-	MapData GenerateMapData(Vector2 center)
+    MapData GenerateMapData(Vector2 center)
     {
         //Retrieve perlin noise array
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistence, noiseData.lacunarity, center + noiseData.offset, noiseData.normalizeMode);
@@ -150,9 +192,9 @@ public class MapGenerator : MonoBehaviour
         return new MapData(noiseMap);
     }
 
-	void OnValidate()
-	{
-		if (terrainData != null)
+    void OnValidate()
+    {
+        if (terrainData != null)
         {
             terrainData.OnValuesUpdated -= OnValuesUpdated;
             terrainData.OnValuesUpdated += OnValuesUpdated;
@@ -169,9 +211,9 @@ public class MapGenerator : MonoBehaviour
             textureData.OnValuesUpdated -= OnValuesUpdated;
             textureData.OnValuesUpdated += OnValuesUpdated;
         }
-	}
+    }
 
-	struct MapThreadInfo<T>
+    struct MapThreadInfo<T>
     {
         public readonly Action<T> callback;
         public readonly T parameter;

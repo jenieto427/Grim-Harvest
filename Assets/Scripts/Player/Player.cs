@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     public void Medicate()
     {
-        if (stimulant >= 1)
+        if (playerDataManager.stimulant >= 1)
         {
             playerDataManager.DecrementStimulant(); // Reduce stimulant stash
             playerDataManager.IncreaseEnergy(2); // Restore energy
