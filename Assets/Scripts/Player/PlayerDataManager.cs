@@ -110,6 +110,12 @@ public class PlayerDataManager : MonoBehaviour
         this.phytomass = 50;
         SavePlayerPrefs();
     }
+    public void resetPlayerPrefsSettings()
+    {
+        this.mouseSensitivity = 120f;
+        this.seenTutorial = 0;
+        SavePlayerPrefs();
+    }
     public void SavePlayerPrefs()
     {
         PlayerPrefs.SetFloat("Energy", energy);
@@ -122,7 +128,6 @@ public class PlayerDataManager : MonoBehaviour
         PlayerPrefs.Save();  // Don't forget to call Save to write to disk
 
     }
-
     public void LoadPlayerPrefs()
     {
         energy = PlayerPrefs.GetFloat("Energy", 30);  // Default to 30 if not set

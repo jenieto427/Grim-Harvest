@@ -3,9 +3,28 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance; // Singleton instance
+
     public AudioClip[] songs; // Assign this in the Inspector
     private AudioSource audioSource;
-    private int[] intervals = { 300 }; // Time intervals in seconds (10 min, 20 min, 30 min)
+    private int[] intervals = { 300 }; // Time intervals in seconds
+
+    private void Awake()
+    {
+        // Check if instance already exists
+        if (instance == null)
+        {
+            // If not, set instance to this
+            instance = this;
+            // Makes the object not be destroyed automatically when loading a new scene
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            // If instance already exists and it's not this, then destroy this to enforce singleton pattern
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

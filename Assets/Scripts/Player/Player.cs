@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) { Medicate(); } // Check if player ate their meds
         if (Input.GetKeyDown(KeyCode.T)) { Travel(); } // Travel between forest and village
-        if (Input.GetKeyDown(KeyCode.C)) { playerDataManager.resetPlayerPrefs(); } // Check if player reset stats
+        // Check if player reset their stats
+        if (Input.GetKeyDown(KeyCode.C)) { playerDataManager.resetPlayerPrefs(); }
+        // Check if the player reset their settings
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { playerDataManager.resetPlayerPrefsSettings(); }
     }
     public void Travel()
     {
