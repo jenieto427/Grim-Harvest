@@ -60,7 +60,7 @@ public class InteractionManager : MonoBehaviour
             playerDataManager.decreaseMinigameEnergyCost(0.1f); // Increment stimulant count 
             // Show success messages
             uiManager.UpdateNotificationQueue("Yeah some tools is gonna save everyone");
-            uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString());
+            uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString("F2"));
             alienAnimationController.TriggerYes();
         }
         else
