@@ -8,7 +8,6 @@ public class InteractionManager : MonoBehaviour
     private UIManager uiManager;
     private PlayerDataManager playerDataManager;
     private NPCWizardAnimationController animationController;
-    private Player player;
 
 
     private void Awake()
@@ -45,10 +44,6 @@ public class InteractionManager : MonoBehaviour
     public void enterExitStudyDungeon()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "StudyDungeon")
-        {
-            GameObject.Find("Player").transform.position = new Vector3(-5f, 1f, 15f); // Set specific coordinates
-        }
         // Switch between 'StudyDungeon' or 'Village'
         SceneManager.LoadScene(currentSceneName == "StudyDungeon" ? "Village" : "StudyDungeon");
     }
