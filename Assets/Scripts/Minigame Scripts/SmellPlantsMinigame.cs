@@ -170,7 +170,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         playerDataManager.DecreaseEnergy(1.5f);
 
         // UI update
-        uiManager.UpdateNotificationQueue("You killed it...");
+        uiManager.UpdateNotificationQueue("haha, I knew you'd kill it");
         minigameManager.ReturnToMainScene(); // Return to main scene
     }
 
