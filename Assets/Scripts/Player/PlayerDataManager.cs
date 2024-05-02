@@ -123,6 +123,8 @@ public class PlayerDataManager : MonoBehaviour
         this.stimulant = 0;
         this.energyBound = 30;
         this.phytomass = 50;
+        this.minigameSampleReward = 1; // Default minigame sample reward
+        this.minigameEnergyCost = 5; // Default minigame energy cost
         SavePlayerPrefs();
     }
     public void resetPlayerPrefsSettings()

@@ -8,7 +8,7 @@ public class InteractionManager : MonoBehaviour
     private UIManager uiManager;
     private PlayerDataManager playerDataManager;
     private NPCWizardAnimationController animationController;
-    private NPCAlienTallAnimationController alienTallAnimationController;
+    private NPCAlienTallAnimationController alienAnimationController;
 
 
     private void Awake()
@@ -16,11 +16,13 @@ public class InteractionManager : MonoBehaviour
         playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
         GameObject uiManagerObject = GameObject.Find("UIManager");
         uiManager = uiManagerObject.GetComponent<UIManager>();
-        GameObject npcObject = GameObject.Find("Wizard"); // Replace "NPC" with your NPC's name in the scene
+
+        GameObject npcObject = GameObject.Find("Wizard");
+        GameObject npcAlienObject = GameObject.Find("Alien_Tall");
         if (SceneManager.GetActiveScene().name == "Village")
         {
             animationController = npcObject.GetComponent<NPCWizardAnimationController>();
-            alienTallAnimationController = npcObject.GetComponent<NPCAlienTallAnimationController>();
+            alienAnimationController = npcAlienObject.GetComponent<NPCAlienTallAnimationController>();
         }
 
     }
@@ -40,13 +42,13 @@ public class InteractionManager : MonoBehaviour
             // Show success messages
             uiManager.UpdateNotificationQueue("Drug addicts make for the best ... scholars?");
             uiManager.UpdateNotificationQueue("You recieved a stimulant");
-            //animationController.TriggerYes();
+            animationController.TriggerYes();
         }
         else
         {
             // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
-            //animationController.TriggerNo();
+            animationController.TriggerNo();
         }
     }
     public void HandleToolVendorInteraction()
@@ -59,13 +61,13 @@ public class InteractionManager : MonoBehaviour
             // Show success messages
             uiManager.UpdateNotificationQueue("Yeah some tools is gonna save everyone");
             uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString());
-            alienTallAnimationController.TriggerYes();
+            alienAnimationController.TriggerYes();
         }
         else
         {
             // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
-            alienTallAnimationController.TriggerNo();
+            alienAnimationController.TriggerNo();
         }
     }
     public void research()
