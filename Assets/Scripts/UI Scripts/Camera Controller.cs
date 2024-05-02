@@ -97,5 +97,10 @@ public class CameraLookController : MonoBehaviour
             uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Study your samples \n(Left Click)");
             if (isMouseClicked) { interactionManager.study(); }
         }
+        else if (tag == "NPCToolsVendor")
+        {
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Upgrade Tools, 10 samples ea. \n(Left Click)");
+            if (isMouseClicked) { interactionManager.HandleToolVendorInteraction(); }
+        }
     }
 }

@@ -3,12 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float energy = 30;
-    public int plantMaterial = 0;
-    public int stimulant = 0;
-    public float energyBound = 30;
-    public int phytomass = 20; //Start with default 50 mass
-    public int seenTutorial = 0; // 0 Is false
     private UIManager uiManager;
     private PlayerDataManager playerDataManager;
 
@@ -39,9 +33,8 @@ public class Player : MonoBehaviour
     }
     public void playerDeath()
     {
+        uiManager.UpdateNotificationQueue("I think you're dying..."); // Tell the player what happened
         playerDataManager.resetPlayerPrefs(); // Reset player variables
-
-        uiManager.UpdateNotificationQueue("I'm pretty sure you died..."); // Tell the player what happened
 
         // Put them back in the village
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -54,7 +47,7 @@ public class Player : MonoBehaviour
         if (playerDataManager.stimulant >= 1)
         {
             playerDataManager.DecrementStimulant(); // Reduce stimulant stash
-            playerDataManager.IncreaseEnergy(2); // Restore energy
+            playerDataManager.IncreaseEnergy(3); // Restore energy
 
             // Optionally, trigger some UI feedback or effects here
             uiManager.UpdateNotificationQueue("Brain activity has increased");

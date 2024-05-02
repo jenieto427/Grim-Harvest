@@ -41,6 +41,24 @@ public class InteractionManager : MonoBehaviour
             animationController.TriggerNo();
         }
     }
+    public void HandleToolVendorInteraction()
+    {
+        int cost = 10; // Cost in plant materials for one stimulant
+        if (playerDataManager.plantMaterial >= cost)
+        {
+            playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
+            playerDataManager.IncrementStimulant(); // Increment stimulant count 
+            // Show success messages
+            uiManager.UpdateNotificationQueue("Bought a drug");
+            animationController.TriggerYes();
+        }
+        else
+        {
+            // Show error messages of failed purchase
+            uiManager.UpdateNotificationQueue("Not enough samples");
+            animationController.TriggerNo();
+        }
+    }
     public void enterExitStudyDungeon()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;

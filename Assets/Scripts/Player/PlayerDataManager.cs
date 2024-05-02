@@ -8,6 +8,8 @@ public class PlayerDataManager : MonoBehaviour
     public int stimulant = 0;
     public float energyBound = 30;
     public int phytomass = 20; //Start with default 50 mass
+    public float minigameSampleRewardAmount = 1; // Default minigame sample reward
+    public float minigameEnergyCostAmount = 5; // Default minigame energy cost
     public int seenTutorial = 0; // 0 Is false
     public float mouseSensitivity = 120;
     private Player player;
