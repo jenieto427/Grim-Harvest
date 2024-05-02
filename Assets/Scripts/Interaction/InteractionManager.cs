@@ -8,6 +8,7 @@ public class InteractionManager : MonoBehaviour
     private UIManager uiManager;
     private PlayerDataManager playerDataManager;
     private NPCWizardAnimationController animationController;
+    private NPCAlienTallAnimationController alienTallAnimationController;
 
 
     private void Awake()
@@ -19,10 +20,16 @@ public class InteractionManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Village")
         {
             animationController = npcObject.GetComponent<NPCWizardAnimationController>();
+            alienTallAnimationController = npcObject.GetComponent<NPCAlienTallAnimationController>();
         }
 
     }
-
+    public void enterExitStudyDungeon()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        // Switch between 'StudyDungeon' or 'Village'
+        SceneManager.LoadScene(currentSceneName == "StudyDungeon" ? "Village" : "StudyDungeon");
+    }
     public void HandleVendorInteraction()
     {
         int cost = 5; // Cost in plant materials for one stimulant
@@ -52,22 +59,16 @@ public class InteractionManager : MonoBehaviour
             // Show success messages
             uiManager.UpdateNotificationQueue("Yeah some tools is gonna save everyone");
             uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString());
-            animationController.TriggerYes();
+            alienTallAnimationController.TriggerYes();
         }
         else
         {
             // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
-            animationController.TriggerNo();
+            alienTallAnimationController.TriggerNo();
         }
     }
-    public void enterExitStudyDungeon()
-    {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        // Switch between 'StudyDungeon' or 'Village'
-        SceneManager.LoadScene(currentSceneName == "StudyDungeon" ? "Village" : "StudyDungeon");
-    }
-    public void study()
+    public void research()
     {
         int cost = 50; // Cost in plant materials for to upgrade study methods
         if (playerDataManager.plantMaterial >= cost)
@@ -77,13 +78,11 @@ public class InteractionManager : MonoBehaviour
             // Show success messages
             uiManager.UpdateNotificationQueue("Congrats you researched a little...");
             uiManager.UpdateNotificationQueue("Average sample retrieval is now: " + playerDataManager.minigameSampleReward.ToString());
-            //animationController.TriggerYes();
         }
         else
         {
             // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
-            //animationController.TriggerNo();
         }
     }
 }

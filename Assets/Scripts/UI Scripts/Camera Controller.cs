@@ -95,7 +95,7 @@ public class CameraLookController : MonoBehaviour
         else if (tag == "ResearchBook")
         {
             uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Do Research, 50 samples ea. \n(Left Click)");
-            if (isMouseClicked) { interactionManager.study(); }
+            if (isMouseClicked) { interactionManager.research(); }
         }
         else if (tag == "NPCToolsVendor")
         {
