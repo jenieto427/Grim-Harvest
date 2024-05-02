@@ -81,11 +81,21 @@ public class CameraLookController : MonoBehaviour
         }
         else if (tag == "NPC Vendor")
         {
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
             if (isMouseClicked)
             {
                 interactionManager.HandleVendorInteraction();
             }
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
+        }
+        else if (tag == "DungeonDoor")
+        {
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Open Door \n(Left Click)");
+            if (isMouseClicked) { interactionManager.enterExitStudyDungeon(); } //Travel to/from dungeon scene
+        }
+        else if (tag == "ResearchBook")
+        {
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Study your samples \n(Left Click)");
+            if (isMouseClicked) { interactionManager.study(); }
         }
     }
 }

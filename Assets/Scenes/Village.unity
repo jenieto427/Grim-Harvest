@@ -2501,7 +2501,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 591427759}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       propertyPath: m_LocalScale.x
@@ -2517,15 +2517,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.9892883
+      value: 1.0107117
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.59718037
+      value: -0.0028196573
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.452416
+      value: 15.452416
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2561,7 +2561,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1500649644}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d2d229635338164cb0877ad5209cd64, type: 3}
       insertIndex: -1
@@ -8520,7 +8523,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1536343606}
-  - {fileID: 229933917}
   - {fileID: 938702898}
   - {fileID: 1058978042}
   - {fileID: 1043294301}
@@ -21209,6 +21211,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a178e3ddd4a467d4090e2b4a7a5e394f, type: 3}
+--- !u!1 &1500649643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1500649644}
+  - component: {fileID: 1500649645}
+  m_Layer: 0
+  m_Name: Dungeon Door Village
+  m_TagString: DungeonDoor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1500649644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500649643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0145, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 229933917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1500649645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500649643}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.004687546, y: 0.0028694365, z: 0.007216348}
+  m_Center: {x: -0.00001571589, y: 0.006899955, z: 0.003607128}
 --- !u!1 &1500735372
 GameObject:
   m_ObjectHideFlags: 0
@@ -34659,6 +34714,7 @@ SceneRoots:
   - {fileID: 1176206377202779990}
   - {fileID: 170334114}
   - {fileID: 279475467}
+  - {fileID: 229933916}
   - {fileID: 591427759}
   - {fileID: 1500735374}
   - {fileID: 584472897}

@@ -20,7 +20,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) { Medicate(); } // Check if player ate their meds
-        if (Input.GetKeyDown(KeyCode.T)) { Travel(); } // Travel between forest and village
+        // Travel between forest and village
+        if (Input.GetKeyDown(KeyCode.T) && SceneManager.GetActiveScene().name != "StudyDungeon")
+        { Travel(); }
         // Check if player reset their stats
         if (Input.GetKeyDown(KeyCode.C)) { playerDataManager.resetPlayerPrefs(); }
         // Check if the player reset their settings
