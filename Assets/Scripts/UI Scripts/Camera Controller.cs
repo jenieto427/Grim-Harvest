@@ -94,12 +94,12 @@ public class CameraLookController : MonoBehaviour
         }
         else if (tag == "ResearchBook")
         {
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Study your samples \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Do Research, 50 samples ea. \n(Left Click)");
             if (isMouseClicked) { interactionManager.study(); }
         }
         else if (tag == "NPCToolsVendor")
         {
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Upgrade Tools, 10 samples ea. \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Upgrade Tools, 15 samples ea. \n(Left Click)");
             if (isMouseClicked) { interactionManager.HandleToolVendorInteraction(); }
         }
     }

@@ -8,8 +8,10 @@ public class PlayerDataManager : MonoBehaviour
     public int stimulant = 0;
     public float energyBound = 30;
     public int phytomass = 20; //Start with default 50 mass
-    public float minigameSampleRewardAmount = 1; // Default minigame sample reward
-    public float minigameEnergyCostAmount = 5; // Default minigame energy cost
+    public int minigameSampleReward = 1; // Default minigame sample reward
+    public int maxSampleRewardBound = 5;
+    public float minigameEnergyCost = 5; // Default minigame energy cost
+    public float minEnergyCostBound = 0.1f; //Lower bound on energy cost
     public int seenTutorial = 0; // 0 Is false
     public float mouseSensitivity = 120;
     private Player player;
@@ -23,31 +25,8 @@ public class PlayerDataManager : MonoBehaviour
             player = GameObject.Find("Player").GetComponent<Player>();
         }
     }
-    public void Travel()
-    {
-        DecreaseEnergy(0.5f);
-        // Get the current scene name
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Check if the current scene is not 'Village'
-        SceneLoader.LoadScene(currentSceneName == "Village" ? "MapGenerationTest" : "Village");
-    }
-    public void setSeenTutorialFalse()
-    {
-        this.seenTutorial = 0;
-        SavePlayerPrefs();
-    }
-    public void setSeenTutorialTrue()
-    {
-        this.seenTutorial = 1;
-        SavePlayerPrefs();
-
-    }
-    public bool boolSeenTutorial()
-    {
-        if (this.seenTutorial == 0) { return false; }
-        else { return true; }
-    }
+    //===============================================================================================
+    // Player variable setters
     public void DecrementStimulant()
     {
         this.stimulant--;
@@ -95,6 +74,40 @@ public class PlayerDataManager : MonoBehaviour
         //if (this.plantMaterial > 100000) { this.plantMaterial = 100000; }
         SavePlayerPrefs();
     }
+    //============================================================================================
+    // Player modifier variables
+    public void increaseMinigameSampleReward(int increaseAmt)
+    {
+        this.minigameSampleReward += increaseAmt;
+        if (this.minigameSampleReward > this.maxSampleRewardBound)
+        { this.minigameSampleReward = this.maxSampleRewardBound; }
+        SavePlayerPrefs();
+    }
+    public void decreaseMinigameEnergyCost(float decreaseAmt)
+    {
+        this.minigameEnergyCost -= decreaseAmt;
+        if (this.minigameEnergyCost < this.minEnergyCostBound)
+        { this.minigameEnergyCost = this.minEnergyCostBound; }
+        SavePlayerPrefs();
+    }
+    //============================================================================================
+    // Player setting functions
+    public void setSeenTutorialFalse()
+    {
+        this.seenTutorial = 0;
+        SavePlayerPrefs();
+    }
+    public void setSeenTutorialTrue()
+    {
+        this.seenTutorial = 1;
+        SavePlayerPrefs();
+
+    }
+    public bool boolSeenTutorial()
+    {
+        if (this.seenTutorial == 0) { return false; }
+        else { return true; }
+    }
     public void setMouseSensitivity(float changedAmount)
     {
         Debug.Log("Set mouse sensitivity: " + changedAmount.ToString());
@@ -125,6 +138,10 @@ public class PlayerDataManager : MonoBehaviour
         PlayerPrefs.SetInt("Stimulant", stimulant);
         PlayerPrefs.SetFloat("EnergyBound", energyBound);
         PlayerPrefs.SetInt("Phytomass", phytomass);
+
+        PlayerPrefs.SetFloat("MinigameEnergyCost", minigameEnergyCost);
+        PlayerPrefs.SetInt("MinigameSampleReward", minigameSampleReward);
+
         PlayerPrefs.SetInt("seenTutorial", seenTutorial);
         PlayerPrefs.SetFloat("MouseSensitivity", mouseSensitivity);
         PlayerPrefs.Save();  // Don't forget to call Save to write to disk
@@ -137,7 +154,11 @@ public class PlayerDataManager : MonoBehaviour
         stimulant = PlayerPrefs.GetInt("Stimulant", 0);  // Default to 0 if not set
         energyBound = PlayerPrefs.GetFloat("EnergyBound", 30);  // Default to 30 if not set
         phytomass = PlayerPrefs.GetInt("Phytomass", 0);  // Default to 0 if not set
-        PlayerPrefs.SetFloat("MouseSensitivity", mouseSensitivity); // Default 120f
-        PlayerPrefs.SetInt("seenTutorial", seenTutorial);
+
+        minigameSampleReward = PlayerPrefs.GetInt("MinigameSampleReward", 1);
+        minigameEnergyCost = PlayerPrefs.GetFloat("MinigameEnergyCost", 5);
+
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 120); // Default 120f
+        seenTutorial = PlayerPrefs.GetInt("seenTutorial", 0);
     }
 }

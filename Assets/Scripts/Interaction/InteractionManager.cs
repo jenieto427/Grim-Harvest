@@ -31,25 +31,27 @@ public class InteractionManager : MonoBehaviour
             playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
             playerDataManager.IncrementStimulant(); // Increment stimulant count 
             // Show success messages
-            uiManager.UpdateNotificationQueue("Bought a drug");
-            animationController.TriggerYes();
+            uiManager.UpdateNotificationQueue("Drug addicts make for the best ... scholars?");
+            uiManager.UpdateNotificationQueue("You recieved a stimulant");
+            //animationController.TriggerYes();
         }
         else
         {
             // Show error messages of failed purchase
             uiManager.UpdateNotificationQueue("Not enough samples");
-            animationController.TriggerNo();
+            //animationController.TriggerNo();
         }
     }
     public void HandleToolVendorInteraction()
     {
-        int cost = 10; // Cost in plant materials for one stimulant
+        int cost = 15; // Cost in plant materials for one stimulant
         if (playerDataManager.plantMaterial >= cost)
         {
             playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
-            playerDataManager.IncrementStimulant(); // Increment stimulant count 
+            playerDataManager.decreaseMinigameEnergyCost(0.1f); // Increment stimulant count 
             // Show success messages
-            uiManager.UpdateNotificationQueue("Bought a drug");
+            uiManager.UpdateNotificationQueue("Yeah some tools is gonna save everyone");
+            uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString());
             animationController.TriggerYes();
         }
         else
@@ -67,7 +69,22 @@ public class InteractionManager : MonoBehaviour
     }
     public void study()
     {
-        return;
+        int cost = 50; // Cost in plant materials for to upgrade study methods
+        if (playerDataManager.plantMaterial >= cost)
+        {
+            playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
+            playerDataManager.increaseMinigameSampleReward(1); // Increment stimulant count 
+            // Show success messages
+            uiManager.UpdateNotificationQueue("Congrats you researched a little...");
+            uiManager.UpdateNotificationQueue("Average sample retrieval is now: " + playerDataManager.minigameSampleReward.ToString());
+            //animationController.TriggerYes();
+        }
+        else
+        {
+            // Show error messages of failed purchase
+            uiManager.UpdateNotificationQueue("Not enough samples");
+            //animationController.TriggerNo();
+        }
     }
 }
 
