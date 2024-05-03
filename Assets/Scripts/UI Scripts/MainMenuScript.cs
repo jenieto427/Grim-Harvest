@@ -25,7 +25,7 @@ public class MainMenuScript : MonoBehaviour
     }
     public void startbtn()
     {
-        SceneManager.LoadScene("Village");
+        SceneManager.LoadScene("Comic");
     }
 
     public void optionsBtn()

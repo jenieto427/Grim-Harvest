@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: d4ad02052d3284843bc6a324bfedb549
   - enabled: 1
+    path: Assets/Scenes/Comic.unity
+    guid: e64bfc8f9ceed0e408cc8af40e9bdfc4
+  - enabled: 1
     path: Assets/Scenes/StudyDungeon.unity
     guid: 7ff965a934286604091117e3ee17cfa4
   - enabled: 1
