@@ -20,9 +20,18 @@ public class PlayerDataManager : MonoBehaviour
     {
         LoadPlayerPrefs();
         // The options menu has a special instance of PlayerDataManager to save mouseSensitivity
-        if (SceneManager.GetActiveScene().name != "Options")
+        // Skip loading player in the Options and Tutorial scenes
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Options" || currentSceneName == "Tutorial")
         {
-            player = GameObject.Find("Player").GetComponent<Player>();
+            return; // Exit the method without loading the player
+        }
+
+        // Proceed to load the player if not in Options or Tutorial scenes
+        player = GameObject.Find("Player").GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Failed to find the Player component on the Player GameObject.");
         }
     }
     //===============================================================================================
@@ -92,12 +101,12 @@ public class PlayerDataManager : MonoBehaviour
     }
     //============================================================================================
     // Player setting functions
-    public void setSeenTutorialFalse()
+    public void SetSeenTutorialFalse()
     {
         this.seenTutorial = 0;
         SavePlayerPrefs();
     }
-    public void setSeenTutorialTrue()
+    public void SetSeenTutorialTrue()
     {
         this.seenTutorial = 1;
         SavePlayerPrefs();
