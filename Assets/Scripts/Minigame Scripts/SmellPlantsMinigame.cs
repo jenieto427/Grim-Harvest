@@ -116,6 +116,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         {
             sampleCount++;
             sampleCountText.text = ("Sample count: " + sampleCount);
+            if (sampleCount >= playerDataManager.minigameSampleReward) { WinGame(); }
             SetRandomTargets();
         }
         else
@@ -147,10 +148,10 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
         }
         else
         {
-            playerDataManager.IncreasePlantMaterial(sampleCount); // Player is rewarded best in pro world
+            playerDataManager.IncreasePlantMaterial(playerDataManager.minigameSampleReward); // Player is rewarded best in pro world
             playerDataManager.increasePhytomass(2); // Player also affects the flora generation
         }
-        playerDataManager.DecreaseEnergy(1f);
+        playerDataManager.DecreaseEnergy(playerDataManager.minigameEnergyCost - 0.5f);
 
         // UI update
         uiManager.UpdateNotificationQueue("Surprised you saved that one");
@@ -167,7 +168,7 @@ public class SmellPlantsMinigame : MonoBehaviour, IPointerUpHandler // Interface
             playerDataManager.decreasePhytomass(2); // Player only affects generation in pro world
         }
         if (herbObject != null) { herbObject.SetActive(false); }
-        playerDataManager.DecreaseEnergy(1.5f);
+        playerDataManager.DecreaseEnergy(playerDataManager.minigameEnergyCost);
 
         // UI update
         uiManager.UpdateNotificationQueue("haha, I knew you'd kill it");
