@@ -68,12 +68,6 @@ public class CameraLookController : MonoBehaviour
         {
             if (isMouseClicked)
             {
-                // Check if the player has energy
-                if (playerDataManager.energy <= 1)
-                {
-                    uiManager.UpdateNotificationQueue("Your brain isn't capable of work");
-                    return;
-                }
                 hit.collider.enabled = false; // Disable collider to prevent re-harvesting
                 minigameManager.TriggerMinigame(hit.collider.gameObject); // Trigger minigame
             }
@@ -81,7 +75,7 @@ public class CameraLookController : MonoBehaviour
         }
         else if (tag == "NPC Vendor")
         {
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 5 samples ea. \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Buy Stimulants, 1 samples ea. \n(Left Click)");
             if (isMouseClicked)
             {
                 interactionManager.HandleVendorInteraction();
@@ -94,12 +88,12 @@ public class CameraLookController : MonoBehaviour
         }
         else if (tag == "ResearchBook")
         {
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Do Research, 50 samples ea. \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Do Research, 25 samples ea. \n(Left Click)");
             if (isMouseClicked) { interactionManager.research(); }
         }
         else if (tag == "NPCToolsVendor")
         {
-            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Upgrade Tools, 15 samples ea. \n(Left Click)");
+            uiManager.UpdateInteractionUI(isMouseClicked ? "" : "Upgrade Tools, 5 samples ea. \n(Left Click)");
             if (isMouseClicked) { interactionManager.HandleToolVendorInteraction(); }
         }
     }

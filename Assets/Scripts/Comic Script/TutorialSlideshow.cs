@@ -1,17 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class TutorialSlideshow : MonoBehaviour
 {
     public Image[] panels;
-    public GameObject slideshowCanvas; // Assign the canvas in the inspector
-    private PlayerDataManager playerDataManager;
     private int currentIndex = 0;
 
     void Start()
     {
-        playerDataManager = GameObject.Find("PlayerDataManager").GetComponent<PlayerDataManager>();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         ShowPanel(currentIndex);
@@ -25,9 +23,11 @@ public class TutorialSlideshow : MonoBehaviour
         }
         else
         {
-            FinishSlideshow();
+            // Load Village scene when end of panels is reached or next on the last panel
+            SceneManager.LoadScene("Village");
         }
     }
+
     public void PreviousPanel()
     {
         if (currentIndex > 0)
@@ -38,7 +38,7 @@ public class TutorialSlideshow : MonoBehaviour
 
     public void SkipToEnd()
     {
-        FinishSlideshow();
+        SceneManager.LoadScene("Village");
     }
 
     private void ShowPanel(int index)
@@ -48,11 +48,5 @@ public class TutorialSlideshow : MonoBehaviour
             panel.gameObject.SetActive(false);
         }
         panels[index].gameObject.SetActive(true);
-    }
-
-    private void FinishSlideshow()
-    {
-        playerDataManager.SetSeenTutorialTrue(); // Assuming this function sets seenTutorial to 1
-        SceneManager.LoadScene("Village");
     }
 }

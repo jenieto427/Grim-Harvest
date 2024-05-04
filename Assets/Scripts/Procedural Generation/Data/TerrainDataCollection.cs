@@ -11,10 +11,15 @@ public class TerrainDataCollection
     public TextureData texture;
     public FloraData flora;
 
-    public void disableAutoUpdate() {
-        terrain.autoUpdate = false;
-        noise.autoUpdate = false;
-        texture.autoUpdate = false;
-        flora.autoUpdate = false;
+    public void disableAutoUpdate()
+    {
+        if (terrain != null)
+            terrain.autoUpdate = false;
+        if (noise != null)
+            noise.autoUpdate = false;
+        if (texture != null)
+            texture.autoUpdate = false;
+        if (flora != null)
+            flora.autoUpdate = false;
     }
 }

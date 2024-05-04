@@ -232,7 +232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &161662656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -651,7 +651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &540899788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -977,10 +977,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You can restore your brain activity by buying stimulants from the wizard.
-    \n\nYou can upgrade your tools by buying them from the blue alien in the market.
-    \n\nAnd finally, you can increase your sample collection amount by reading the
-    book in your house. It is behind the tavern"
+  m_text: 'Buy stimulants from the wizard to increase your brain activity.
+
+
+    Upgrade
+    your tools by talking to the blue alien in the market.
+
+
+    Increase your sample
+    collection amount by researching in your dungeon behind the tavern.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
   m_sharedMaterial: {fileID: -5600359889127338036, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
@@ -1184,7 +1189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &737303600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1260,7 +1265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &808459303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1509,9 +1514,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: At first you'll tire easily and won't be able to gather much samples. As
-    you get better at the game, upgrade your tools and study skills you'll be able
-    to restore the ecosystem much faster!
+  m_text: You're just an apprentice, but you can upgrade your tools and research
+    methods!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
   m_sharedMaterial: {fileID: -5600359889127338036, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
@@ -1645,8 +1649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Walk up to any plant to study it, but you need to show your skill! You
-    can't just gather samples! You have to win the game without mistakes!
+  m_text: You can study any plant, and saving it heals the environment.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
   m_sharedMaterial: {fileID: -5600359889127338036, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
@@ -1775,7 +1778,6 @@ MonoBehaviour:
   - {fileID: 1962807662}
   - {fileID: 808459304}
   - {fileID: 161662657}
-  slideshowCanvas: {fileID: 632099310}
 --- !u!1 &1075126071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,8 +1910,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The ecosystem is in danger! you need to research and study plants to propogate
-    them to restore nature and fight against the eldritch horror.
+  m_text: You must fight the eldritch horror! Fight it by studying and propogating
+    plants!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
   m_sharedMaterial: {fileID: -5600359889127338036, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
@@ -2003,7 +2005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1237948762
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2119,7 +2121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controls\nWASD - movement\n(SPACE) Jump, \r\n(Mouse) - Minecraft camera
+  m_text: "CONTROLS\nWASD - movement\n(SPACE) Jump, \r\n(Mouse) - Minecraft camera
     looking\r\n(Left-Click) - interact\r\n(T) to travel between worlds\r\n(E) to
     eat stims\r\n(C) to reset player stats\r\n(ESC) to pause game"
   m_isRightToLeft: 0
@@ -2312,7 +2314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are ready
+  m_text: YOU ARE READY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
   m_sharedMaterial: {fileID: -5600359889127338036, guid: caae0244d8cd03a41b6974f45a27b854, type: 2}
@@ -2673,7 +2675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1962807661
 RectTransform:
   m_ObjectHideFlags: 0

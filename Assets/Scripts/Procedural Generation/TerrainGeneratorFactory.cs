@@ -1,29 +1,17 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TerrainGeneratorFactory : MonoBehaviour
 {
 	public GameObject playerPrefab;
-	/// <summary>
-	/// SET PLAYER TRANSFORM
-	/// </summary>
-
-	//Terrain Objects
 	public Material terrainMaterial;
 	public NoiseData noiseDataDefault;
 	public FloraData floraDataDefault;
 	public List<TerrainDataCollection> environmentDataSheets;
-
-	//Object parents
 	public GameObject generatorPrefab;
 	public GameObject treeParent;
 	public GameObject plantParent;
 
-	//Map Generator constants
 	const MapGenerator.DrawMode DRAW_MODE = MapGenerator.DrawMode.Mesh;
 	const float NOISE_HEIGHT_ESTIMATION = 1.12f;
 	const int EDITOR_PREVIEW_LOD = 0;
@@ -41,40 +29,40 @@ public class TerrainGeneratorFactory : MonoBehaviour
 
 	public void InstantiateTerrainGenerator()
 	{
-		mapHasGenerated = true;
-
-		//Instantiate new generator
 		GameObject terrainGenerator = Instantiate(generatorPrefab, Vector3.zero, Quaternion.identity);
 		MapGenerator mapGenerator = terrainGenerator.GetComponentInChildren<MapGenerator>();
 		EndlessTerrain endlessTerrain = terrainGenerator.GetComponentInChildren<EndlessTerrain>();
+		MapDisplay mapDisplay = terrainGenerator.GetComponentInChildren<MapDisplay>();
 
-		//Set as child of factory
-		GameObject factory = GameObject.FindGameObjectWithTag("Factory");
-		terrainGenerator.transform.parent = factory.transform;
+		if (mapGenerator == null || endlessTerrain == null || mapDisplay == null)
+		{
+			Debug.LogError("Required components are missing on the terrain generator prefab.");
+			Destroy(terrainGenerator); // Cleanup if not correctly set up.
+			return;
+		}
 
-		//Set Endless Terrain and Map Generator Values
+		mapGenerator.SetMapDisplay(mapDisplay); // Set the MapDisplay reference
+		mapGenerator.editorMapIsEnabled = true; // Ensure editor map is enabled
+
+		terrainGenerator.transform.SetParent(GameObject.FindGameObjectWithTag("Factory")?.transform ?? this.transform, false);
+
 		SetConstantValues(mapGenerator, endlessTerrain);
-
-		//Determine Texture Data Sheets
 		DetermineTextureDataSheets(mapGenerator);
 
-		//Run Map Generator
 		mapGenerator.OnSceneLoad();
 		endlessTerrain.OnSceneLoad();
 
 		endlessTerrain.mapGeneratorFinished = true;
+		mapHasGenerated = true;
 	}
 
 	void SetConstantValues(MapGenerator mapGenerator, EndlessTerrain endlessTerrain)
 	{
-		//Map Generator Values
 		mapGenerator.drawMode = DRAW_MODE;
 		mapGenerator.noiseHeightEstimation = NOISE_HEIGHT_ESTIMATION;
 		mapGenerator.editorPreviewLOD = EDITOR_PREVIEW_LOD;
-		mapGenerator.editorMapIsEnabled = false;
 		mapGenerator.autoUpdate = AUTO_UPDATE;
 
-		//Endless Terrain Values
 		endlessTerrain.viewer = playerPrefab.transform;
 		endlessTerrain.floraData = floraDataDefault;
 		endlessTerrain.treeParent = treeParent;
@@ -84,35 +72,31 @@ public class TerrainGeneratorFactory : MonoBehaviour
 	void DetermineTextureDataSheets(MapGenerator terrainGenerator)
 	{
 		PlayerDataManager playerDataManager = FindObjectOfType<PlayerDataManager>();
+		if (playerDataManager == null)
+		{
+			Debug.LogError("PlayerDataManager not found in the scene.");
+			return;
+		}
+
 		int phytomass = playerDataManager.phytomass;
 		TerrainDataCollection dataSheet = null;
 
 		foreach (TerrainDataCollection sheet in environmentDataSheets)
 		{
-			if (phytomass >= sheet.phytomassThreshold)
+			if (phytomass >= sheet.phytomassThreshold && (dataSheet == null || sheet.phytomassThreshold > dataSheet.phytomassThreshold))
 			{
-				//Ensure it's the highest possible sheet
-				if (dataSheet != null)
-				{
-					if (sheet.phytomassThreshold > dataSheet.phytomassThreshold)
-					{
-						dataSheet = sheet;
-						dataSheet.disableAutoUpdate();
-					}
-				}
-				else
-				{
-					dataSheet = sheet;
-				}
+				dataSheet = sheet;
 			}
 		}
 
 		if (dataSheet != null)
 		{
+			dataSheet.disableAutoUpdate();
 			SetTextureData(terrainGenerator, dataSheet);
 		}
 		else
 		{
+			Debug.LogError("No valid data sheet found; using default.");
 			SetTextureData(terrainGenerator, environmentDataSheets[0]);
 		}
 	}

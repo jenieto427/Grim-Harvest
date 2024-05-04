@@ -10,7 +10,7 @@ public class PlayerDataManager : MonoBehaviour
     public int phytomass = 20; //Start with default 50 mass
     public int minigameSampleReward = 1; // Default minigame sample reward
     public int maxSampleRewardBound = 5;
-    public float minigameEnergyCost = 5; // Default minigame energy cost
+    public float minigameEnergyCost = 6; // Default minigame energy cost
     public float minEnergyCostBound = 0.1f; //Lower bound on energy cost
     public int seenTutorial = 0; // 0 Is false
     public float mouseSensitivity = 120;
@@ -131,9 +131,9 @@ public class PlayerDataManager : MonoBehaviour
         this.plantMaterial = 0;
         this.stimulant = 0;
         this.energyBound = 30;
-        this.phytomass = 50;
+        this.phytomass = 20;
         this.minigameSampleReward = 1; // Default minigame sample reward
-        this.minigameEnergyCost = 5; // Default minigame energy cost
+        this.minigameEnergyCost = 6; // Default minigame energy cost
         SavePlayerPrefs();
     }
     public void resetPlayerPrefsSettings()
@@ -164,7 +164,7 @@ public class PlayerDataManager : MonoBehaviour
         plantMaterial = PlayerPrefs.GetInt("PlantMaterial", 0);  // Default to 0 if not set
         stimulant = PlayerPrefs.GetInt("Stimulant", 0);  // Default to 0 if not set
         energyBound = PlayerPrefs.GetFloat("EnergyBound", 30);  // Default to 30 if not set
-        phytomass = PlayerPrefs.GetInt("Phytomass", 0);  // Default to 0 if not set
+        phytomass = PlayerPrefs.GetInt("Phytomass", 20);  // Default to 0 if not set
 
         minigameSampleReward = PlayerPrefs.GetInt("MinigameSampleReward", 1);
         minigameEnergyCost = PlayerPrefs.GetFloat("MinigameEnergyCost", 5);

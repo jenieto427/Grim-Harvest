@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     }
     public void Travel()
     {
-        playerDataManager.DecreaseEnergy(1f);
+        playerDataManager.DecreaseEnergy(0.5f);
         // Get the current scene name
         string currentSceneName = SceneManager.GetActiveScene().name;
 
@@ -37,8 +37,7 @@ public class Player : MonoBehaviour
         playerDataManager.resetPlayerPrefs(); // Reset player variables
 
         // Put them back in the village
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneLoader.LoadScene(currentSceneName == "Village" ? "MapGenerationTest" : "Village");
+        SceneLoader.LoadScene("Village");
 
     }
 
@@ -47,7 +46,7 @@ public class Player : MonoBehaviour
         if (playerDataManager.stimulant >= 1)
         {
             playerDataManager.DecrementStimulant(); // Reduce stimulant stash
-            playerDataManager.IncreaseEnergy(3); // Restore energy
+            playerDataManager.IncreaseEnergy(6f); // Restore energy
 
             // Optionally, trigger some UI feedback or effects here
             uiManager.UpdateNotificationQueue("Brain activity has increased");

@@ -22,7 +22,7 @@ public class ComicSlideshow : MonoBehaviour
         else
         {
             // Load Village scene when end of panels is reached or next on the last panel
-            SceneManager.LoadScene("Village");
+            SceneManager.LoadScene("Tutorial");
         }
     }
 
@@ -36,7 +36,7 @@ public class ComicSlideshow : MonoBehaviour
 
     public void SkipToEnd()
     {
-        SceneManager.LoadScene("Village");
+        SceneManager.LoadScene("Tutorial");
     }
 
     private void ShowPanel(int index)

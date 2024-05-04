@@ -157,21 +157,21 @@ MonoBehaviour:
   noiseDataDefault: {fileID: 11400000, guid: ff6b0420101d3524499eec301b1be187, type: 2}
   floraDataDefault: {fileID: 11400000, guid: 9a179f3398980534fab566dc8e7c3a91, type: 2}
   environmentDataSheets:
-  - phytomassThreshold: 40
-    terrain: {fileID: 11400000, guid: a4728b627e3dba2bf8474188843c0c54, type: 2}
-    noise: {fileID: 0}
-    texture: {fileID: 11400000, guid: df366aaee4fb00d688a8a108e76fa646, type: 2}
-    flora: {fileID: 11400000, guid: c94d14a7099daeba79242f1b95e842e0, type: 2}
-  - phytomassThreshold: 20
-    terrain: {fileID: 11400000, guid: cfcee2681e833c4be82d735cba51317f, type: 2}
-    noise: {fileID: 0}
-    texture: {fileID: 11400000, guid: f446bf36fb9deb79c80002958ee24a03, type: 2}
-    flora: {fileID: 11400000, guid: 118a5d8f1f2ffb2c6aaa524782caa222, type: 2}
   - phytomassThreshold: 0
     terrain: {fileID: 11400000, guid: c8fb9070c1e0b25b0803185c9bf1344c, type: 2}
     noise: {fileID: 0}
     texture: {fileID: 11400000, guid: 6956aa7d4928273e19c0bd7bc3a11255, type: 2}
     flora: {fileID: 11400000, guid: c070052f0f4fa0e6a8fa4410dde77d55, type: 2}
+  - phytomassThreshold: 20
+    terrain: {fileID: 11400000, guid: cfcee2681e833c4be82d735cba51317f, type: 2}
+    noise: {fileID: 0}
+    texture: {fileID: 11400000, guid: f446bf36fb9deb79c80002958ee24a03, type: 2}
+    flora: {fileID: 11400000, guid: 118a5d8f1f2ffb2c6aaa524782caa222, type: 2}
+  - phytomassThreshold: 40
+    terrain: {fileID: 11400000, guid: a4728b627e3dba2bf8474188843c0c54, type: 2}
+    noise: {fileID: 0}
+    texture: {fileID: 11400000, guid: df366aaee4fb00d688a8a108e76fa646, type: 2}
+    flora: {fileID: 11400000, guid: c94d14a7099daeba79242f1b95e842e0, type: 2}
   - phytomassThreshold: 60
     terrain: {fileID: 11400000, guid: 96e824a9b28434383a1faf6266de736b, type: 2}
     noise: {fileID: 0}

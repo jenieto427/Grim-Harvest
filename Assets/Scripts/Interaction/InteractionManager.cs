@@ -34,7 +34,7 @@ public class InteractionManager : MonoBehaviour
     }
     public void HandleVendorInteraction()
     {
-        int cost = 5; // Cost in plant materials for one stimulant
+        int cost = 1; // Cost in plant materials for one stimulant
         if (playerDataManager.plantMaterial >= cost)
         {
             playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
@@ -53,11 +53,11 @@ public class InteractionManager : MonoBehaviour
     }
     public void HandleToolVendorInteraction()
     {
-        int cost = 15; // Cost in plant materials for one stimulant
+        int cost = 5; // Cost in plant materials for one stimulant
         if (playerDataManager.plantMaterial >= cost)
         {
             playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
-            playerDataManager.decreaseMinigameEnergyCost(0.1f); // Increment stimulant count 
+            playerDataManager.decreaseMinigameEnergyCost(0.5f); // Increment stimulant count 
             // Show success messages
             uiManager.UpdateNotificationQueue("Yeah some tools is gonna save everyone");
             uiManager.UpdateNotificationQueue("Average brain wave cost is now: " + playerDataManager.minigameEnergyCost.ToString("F2"));
@@ -72,11 +72,11 @@ public class InteractionManager : MonoBehaviour
     }
     public void research()
     {
-        int cost = 50; // Cost in plant materials for to upgrade study methods
+        int cost = 25; // Cost in plant materials for to upgrade study methods
         if (playerDataManager.plantMaterial >= cost)
         {
             playerDataManager.DecreasePlantMaterial(cost); // Reduce samples/money
-            playerDataManager.increaseMinigameSampleReward(1); // Increment stimulant count 
+            playerDataManager.increaseMinigameSampleReward(2); // Increment stimulant count 
             // Show success messages
             uiManager.UpdateNotificationQueue("Congrats you researched a little...");
             uiManager.UpdateNotificationQueue("Average sample retrieval is now: " + playerDataManager.minigameSampleReward.ToString());
