@@ -61,7 +61,7 @@ public class PlayerDataManager : MonoBehaviour
     public void DecreaseEnergy(float decreaseAmt)
     {
         this.energy -= decreaseAmt;
-        if (this.energy <= 0) { player.playerDeath(); } //Clamp energy low bound to 0
+        if (this.energy < 0) { player.playerDeath(); } //Clamp energy low bound to 0
         SavePlayerPrefs();
     }
     public void IncreaseEnergy(float increaseAmt)
